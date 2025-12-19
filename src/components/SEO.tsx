@@ -10,9 +10,9 @@ interface SEOProps {
 }
 
 export function SEO({
-  title = 'DoneWell - Professional Websites Designed, Built, and Launched with Care',
+  title = 'Design, build and launch your idea fast with DoneWell',
   description = 'We turn your vision into professional websites and apps that your customers will love — without the tech headaches. Average 14-day delivery.',
-  image = 'https://donewellco.com/og-image.jpg',
+  image = 'https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Homepage/OG.png',
   url = 'https://donewellco.com',
   type = 'website',
   keywords = 'website design, web development, custom websites, business websites, donewell, web design agency',
@@ -52,10 +52,11 @@ export function SEO({
 
     // Twitter meta tags
     updateMetaTag('twitter:card', 'summary_large_image');
+    updateMetaTag('twitter:domain', 'donewellco.com', true);
+    updateMetaTag('twitter:url', fullUrl, true);
     updateMetaTag('twitter:title', fullTitle);
     updateMetaTag('twitter:description', description);
     updateMetaTag('twitter:image', image);
-    updateMetaTag('twitter:url', fullUrl);
 
     // Update canonical link
     let canonical = document.querySelector('link[rel="canonical"]');

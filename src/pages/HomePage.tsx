@@ -49,7 +49,7 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
   return (
     <div className="min-h-screen">
       <SEO 
-        title="DoneWell - Professional Websites Designed, Built, and Launched with Care"
+        title="Design, build and launch your idea fast with DoneWell"
         description="We turn your vision into professional websites and apps that your customers will love — without the tech headaches. Average 14-day delivery."
         url="https://donewellco.com"
       />
