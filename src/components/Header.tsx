@@ -9,8 +9,8 @@ interface HeaderProps {
 export function Header({ onGetStartedClick }: HeaderProps) {
   return (
     <header className="bg-white/80 backdrop-blur-sm sticky top-0 z-50 border-b border-[--color-sand-200]">
-      <div className="max-w-7xl mx-auto px-6 py-4 grid grid-cols-3 items-center">
-        <div className="flex items-center justify-self-start">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center flex-shrink-0">
           <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <img 
               src={logo} 
@@ -23,7 +23,7 @@ export function Header({ onGetStartedClick }: HeaderProps) {
           </a>
         </div>
         
-        <nav className="hidden md:flex items-center justify-self-center gap-8">
+        <nav className="hidden md:flex items-center gap-8 flex-1 justify-center">
           <a href="/" className="text-[--color-stone-700] hover:text-[--color-forest-700] transition-colors font-semibold">
             Home
           </a>
@@ -35,9 +35,9 @@ export function Header({ onGetStartedClick }: HeaderProps) {
           </a>
         </nav>
         
-        <div className="flex items-center justify-self-end gap-4">
+        <div className="flex items-center gap-4 flex-shrink-0">
           <Button variant="primary" size="medium" onClick={onGetStartedClick}>
-            Book a Consult
+            <span className="whitespace-nowrap text-sm md:text-base">Book a Consult</span>
           </Button>
         </div>
       </div>

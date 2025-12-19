@@ -132,8 +132,8 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-white">
             {sortedMetrics.map(metric => (
               <div key={metric.id} className="text-center">
-                <div className="text-5xl md:text-6xl mb-2">{metric.value}</div>
-                <div className="text-white opacity-90">{metric.label}</div>
+                <div className="text-3xl md:text-6xl mb-2">{metric.value}</div>
+                <div className="text-sm md:text-base text-white opacity-90">{metric.label}</div>
               </div>
             ))}
           </div>
