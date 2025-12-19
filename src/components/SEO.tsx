@@ -10,7 +10,7 @@ interface SEOProps {
 }
 
 export function SEO({
-  title = 'Design, build and launch your idea fast with DoneWell',
+  title = 'Your idea. Built right. Delivered fast.',
   description = 'We turn your vision into professional websites and apps that your customers will love — without the tech headaches. Average 14-day delivery.',
   image = 'https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Homepage/OG.png',
   url = 'https://donewellco.com',
@@ -21,6 +21,8 @@ export function SEO({
     const currentPath = window.location.pathname;
     const fullUrl = `${url}${currentPath === '/' ? '' : currentPath}`;
     const fullTitle = title.includes('DoneWell') ? title : `${title} | DoneWell`;
+    // Use title as-is for OG/Twitter (without "| DoneWell" suffix)
+    const ogTitle = title;
 
     // Update document title
     document.title = fullTitle;
@@ -44,7 +46,7 @@ export function SEO({
 
     // Open Graph meta tags
     updateMetaTag('og:type', type, true);
-    updateMetaTag('og:title', fullTitle, true);
+    updateMetaTag('og:title', ogTitle, true);
     updateMetaTag('og:description', description, true);
     updateMetaTag('og:image', image, true);
     updateMetaTag('og:url', fullUrl, true);
@@ -54,7 +56,7 @@ export function SEO({
     updateMetaTag('twitter:card', 'summary_large_image');
     updateMetaTag('twitter:domain', 'donewellco.com', true);
     updateMetaTag('twitter:url', fullUrl, true);
-    updateMetaTag('twitter:title', fullTitle);
+    updateMetaTag('twitter:title', ogTitle);
     updateMetaTag('twitter:description', description);
     updateMetaTag('twitter:image', image);
 
