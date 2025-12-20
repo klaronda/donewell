@@ -42,23 +42,30 @@ export function useLeads() {
         .select()
         .single();
 
-      if (insertError) throw insertError;
+      if (insertError) {
+        console.error('Database error adding lead:', insertError);
+        throw insertError;
+      }
 
       const newLead = transformLead(data as DatabaseLead);
       setLeads((prev) => [newLead, ...prev]);
       
       // Send email for new lead (bookedConsult is false by default)
+      // This is fire-and-forget - don't wait for it or let it break the flow
       if (!newLead.bookedConsult) {
-        sendEmail({
-          to: newLead.email,
-          firstName: newLead.firstName,
-          lastName: newLead.lastName,
-          businessName: newLead.businessName || undefined,
-          message: newLead.message || undefined,
-          bookedConsult: false,
-        }).catch((error) => {
-          console.error('Failed to send email after lead creation:', error);
-        });
+        // Use setTimeout to ensure this runs after the function returns
+        setTimeout(() => {
+          sendEmail({
+            to: newLead.email,
+            firstName: newLead.firstName,
+            lastName: newLead.lastName,
+            businessName: newLead.businessName || undefined,
+            message: newLead.message || undefined,
+            bookedConsult: false,
+          }).catch((error) => {
+            console.warn('Failed to send email after lead creation (non-critical):', error);
+          });
+        }, 0);
       }
       
       return newLead;
@@ -100,17 +107,21 @@ export function useLeads() {
       );
       
       // Send email when booking is confirmed (bookedConsult changes from false to true)
+      // This is fire-and-forget - don't wait for it or let it break the flow
       if (isBookingConfirmed) {
-        sendEmail({
-          to: updatedLead.email,
-          firstName: updatedLead.firstName,
-          lastName: updatedLead.lastName,
-          businessName: updatedLead.businessName || undefined,
-          message: updatedLead.message || undefined,
-          bookedConsult: true,
-        }).catch((error) => {
-          console.error('Failed to send email after booking confirmation:', error);
-        });
+        // Use setTimeout to ensure this runs after the function returns
+        setTimeout(() => {
+          sendEmail({
+            to: updatedLead.email,
+            firstName: updatedLead.firstName,
+            lastName: updatedLead.lastName,
+            businessName: updatedLead.businessName || undefined,
+            message: updatedLead.message || undefined,
+            bookedConsult: true,
+          }).catch((error) => {
+            console.warn('Failed to send email after booking confirmation (non-critical):', error);
+          });
+        }, 0);
       }
       
       return updatedLead;

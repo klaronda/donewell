@@ -66,7 +66,12 @@ export function GetStartedModal({ isOpen, onClose }: GetStartedModalProps) {
       setStep(step + 1);
     } catch (error) {
       console.error('Error saving lead:', error);
-      alert('There was an error saving your information. Please try again.');
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : typeof error === 'object' && error !== null && 'message' in error
+        ? String(error.message)
+        : 'Unknown error';
+      alert(`There was an error saving your information: ${errorMessage}. Please try again or contact support.`);
     } finally {
       setSaving(false);
     }
