@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { DatabaseLead, Lead, transformLead, leadToDatabase } from '../types/database';
+import { sendEmail } from '../lib/email';
 
 export function useLeads() {
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -45,6 +46,21 @@ export function useLeads() {
 
       const newLead = transformLead(data as DatabaseLead);
       setLeads((prev) => [newLead, ...prev]);
+      
+      // Send email for new lead (bookedConsult is false by default)
+      if (!newLead.bookedConsult) {
+        sendEmail({
+          to: newLead.email,
+          firstName: newLead.firstName,
+          lastName: newLead.lastName,
+          businessName: newLead.businessName || undefined,
+          message: newLead.message || undefined,
+          bookedConsult: false,
+        }).catch((error) => {
+          console.error('Failed to send email after lead creation:', error);
+        });
+      }
+      
       return newLead;
     } catch (err) {
       console.error('Error adding lead:', err);
@@ -54,6 +70,10 @@ export function useLeads() {
 
   const updateLead = async (id: string, updates: Partial<Lead>) => {
     try {
+      // Get the current lead to check if bookedConsult is changing
+      const currentLead = leads.find((l) => l.id === id);
+      const isBookingConfirmed = currentLead && !currentLead.bookedConsult && updates.bookedConsult === true;
+
       const dbUpdates: Partial<DatabaseLead> = {};
       
       if (updates.firstName !== undefined) dbUpdates.first_name = updates.firstName;
@@ -78,6 +98,21 @@ export function useLeads() {
       setLeads((prev) =>
         prev.map((l) => (l.id === id ? updatedLead : l))
       );
+      
+      // Send email when booking is confirmed (bookedConsult changes from false to true)
+      if (isBookingConfirmed) {
+        sendEmail({
+          to: updatedLead.email,
+          firstName: updatedLead.firstName,
+          lastName: updatedLead.lastName,
+          businessName: updatedLead.businessName || undefined,
+          message: updatedLead.message || undefined,
+          bookedConsult: true,
+        }).catch((error) => {
+          console.error('Failed to send email after booking confirmation:', error);
+        });
+      }
+      
       return updatedLead;
     } catch (err) {
       console.error('Error updating lead:', err);
@@ -111,4 +146,6 @@ export function useLeads() {
     deleteLead,
   };
 }
+
+
 
