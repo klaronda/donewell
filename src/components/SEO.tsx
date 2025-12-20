@@ -10,7 +10,7 @@ interface SEOProps {
 }
 
 export function SEO({
-  title = 'Your idea. Built right. Delivered fast.',
+  title = 'DoneWell – Web and App Builds, DoneWell',
   description = 'We turn your vision into professional websites and apps that your customers will love — without the tech headaches. Average 14-day delivery.',
   image = 'https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Homepage/OG.png',
   url = 'https://donewellco.com',
@@ -21,8 +21,11 @@ export function SEO({
     const currentPath = window.location.pathname;
     const fullUrl = `${url}${currentPath === '/' ? '' : currentPath}`;
     const fullTitle = title.includes('DoneWell') ? title : `${title} | DoneWell`;
-    // Use title as-is for OG/Twitter (without "| DoneWell" suffix)
-    const ogTitle = title;
+    // Use title as-is for OG/Twitter, but default to OG-specific title if using default browser title
+    // This ensures OG titles stay as "Your idea. Built right. Delivered fast." when no title prop is provided
+    const ogTitle = title === 'DoneWell – Web and App Builds, DoneWell' 
+      ? 'Your idea. Built right. Delivered fast.' 
+      : title;
 
     // Update document title
     document.title = fullTitle;
@@ -72,3 +75,5 @@ export function SEO({
 
   return null;
 }
+
+

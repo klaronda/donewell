@@ -5,6 +5,7 @@ import { ProjectCard } from '../components/ProjectCard';
 import { MetricCard, Metric } from '../components/MetricCard';
 import { GetStartedModal } from '../components/GetStartedModal';
 import { SEO } from '../components/SEO';
+import { ProjectDetailSkeleton } from '../components/ProjectDetailSkeleton';
 import { useAdmin } from '../contexts/AdminContext';
 import { ArrowLeft } from 'lucide-react';
 
@@ -16,7 +17,12 @@ interface ProjectDetailPageProps {
 }
 
 export function ProjectDetailPage({ projectSlug, onGetStartedClick, isModalOpen, onModalClose }: ProjectDetailPageProps) {
-  const { projects } = useAdmin();
+  const { projects, loading } = useAdmin();
+  
+  // Show skeleton loader while loading
+  if (loading) {
+    return <ProjectDetailSkeleton onGetStartedClick={onGetStartedClick} />;
+  }
   
   // Find project by slug
   const project = projects.find(p => p.slug === projectSlug);
@@ -27,7 +33,7 @@ export function ProjectDetailPage({ projectSlug, onGetStartedClick, isModalOpen,
     .sort((a, b) => a.order - b.order)
     .slice(0, 3);
 
-  // If project not found, show error state
+  // If project not found after loading completes, show error state
   if (!project) {
     return (
       <div className="min-h-screen">
