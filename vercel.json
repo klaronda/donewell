@@ -1,4 +1,17 @@
 {
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.donewellco.com"
+        }
+      ],
+      "destination": "https://donewellco.com/$1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
@@ -35,3 +48,7 @@
     }
   ]
 }
+
+
+
+

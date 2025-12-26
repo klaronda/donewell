@@ -46,6 +46,7 @@ export function SEO({
     updateMetaTag('description', description);
     updateMetaTag('keywords', keywords);
     updateMetaTag('title', fullTitle);
+    updateMetaTag('robots', 'index, follow');
 
     // Open Graph meta tags
     updateMetaTag('og:type', type, true);
@@ -75,5 +76,7 @@ export function SEO({
 
   return null;
 }
+
+
 
 
