@@ -56,6 +56,15 @@ export function UnsubscribePage() {
   return (
     <div className="min-h-screen bg-[#faf8f5] flex items-center justify-center px-6 py-20">
       <div className="max-w-2xl w-full">
+        {/* Logo at top */}
+        <div className="mb-8 text-center">
+          <img 
+            src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Logo.svg" 
+            alt="DoneWell" 
+            className="h-10 mx-auto"
+          />
+        </div>
+
         {isLoading ? (
           <div className="bg-white rounded-[8px] p-12 text-center">
             <p className="text-[--color-stone-700]">Processing your request...</p>
