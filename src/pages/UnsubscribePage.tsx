@@ -59,7 +59,7 @@ export function UnsubscribePage() {
         {/* Logo at top */}
         <div className="mb-8 text-center">
           <img 
-            src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Logo.svg" 
+            src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Assets/Logo.svg" 
             alt="DoneWell" 
             className="h-10 mx-auto"
           />
