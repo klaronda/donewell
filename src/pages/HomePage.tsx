@@ -7,7 +7,6 @@ import { CaseStudyCard } from '../components/CaseStudyCard';
 import { TestimonialCard } from '../components/TestimonialCard';
 import { TrustBadge } from '../components/TrustBadge';
 import { GetStartedModal } from '../components/GetStartedModal';
-import { SEO } from '../components/SEO';
 import { 
   Lightbulb, 
   FileText, 
@@ -48,10 +47,6 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
 
   return (
     <div className="min-h-screen">
-      <SEO 
-        description="We turn your vision into professional websites and apps that your customers will love — without the tech headaches. Average 14-day delivery."
-        url="https://donewellco.com"
-      />
       <Header onGetStartedClick={onGetStartedClick} />
       
       {/* HERO SECTION - Enhanced for Conversion */}
@@ -65,7 +60,12 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
                   ⚡ Projects Launched in 14 Days or Less
                 </span>
               </div>
-              <h1 className="mb-6 bg-gradient-to-br from-[--color-navy-900] via-[--color-forest-800] to-[--color-sage-700] bg-clip-text text-transparent">
+              <h1 
+                className="mb-6 bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: 'linear-gradient(to bottom right, var(--color-navy-900), var(--color-forest-700), var(--color-sage-700))'
+                }}
+              >
                 Your Idea. Built Right. Delivered Fast.
               </h1>
               <p className="text-xl text-[--color-stone-800] mb-6 leading-relaxed px-[0px] py-[24px] mx-auto my-[12px] max-w-2xl text-left">
@@ -92,27 +92,24 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
               {/* Social Proof Line */}
               <div className="flex items-center gap-3 text-sm text-[--color-stone-700]">
                 <div className="flex -space-x-2">
-                  <img src="https://images.unsplash.com/photo-1689600944138-da3b150d9cb8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMHByb2Zlc3Npb25hbCUyMGhlYWRzaG90JTIwd29tYW58ZW58MXx8fHwxNzY1OTgwNDc3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" alt="" className="w-8 h-8 rounded-full border-2 border-white object-cover" loading="lazy" width={32} height={32} />
-                  <img src="https://images.unsplash.com/photo-1723537742563-15c3d351dbf2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMHByb2Zlc3Npb25hbCUyMGhlYWRzaG90JTIwbWFufGVufDF8fHx8MTc2NTk2MjQ2NHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" alt="" className="w-8 h-8 rounded-full border-2 border-white object-cover" loading="lazy" width={32} height={32} />
-                  <img src="https://images.unsplash.com/photo-1762522926157-bcc04bf0b10a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBoZWFkc2hvdCUyMGNvbmZpZGVudHxlbnwxfHx8fDE3NjU5ODA0Nzd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" alt="" className="w-8 h-8 rounded-full border-2 border-white object-cover" loading="lazy" width={32} height={32} />
+                  <img src="https://images.unsplash.com/photo-1689600944138-da3b150d9cb8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMHByb2Zlc3Npb25hbCUyMGhlYWRzaG90JTIwd29tYW58ZW58MXx8fHwxNzY1OTgwNDc3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" alt="" className="w-8 h-8 rounded-full border-2 border-white object-cover" />
+                  <img src="https://images.unsplash.com/photo-1723537742563-15c3d351dbf2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMHByb2Zlc3Npb25hbCUyMGhlYWRzaG90JTIwbWFufGVufDF8fHx8MTc2NTk2MjQ2NHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" alt="" className="w-8 h-8 rounded-full border-2 border-white object-cover" />
+                  <img src="https://images.unsplash.com/photo-1762522926157-bcc04bf0b10a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBoZWFkc2hvdCUyMGNvbmZpZGVudHxlbnwxfHx8fDE3NjU5ODA0Nzd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" alt="" className="w-8 h-8 rounded-full border-2 border-white object-cover" />
                 </div>
                 <span><strong className="text-[--color-stone-900]">50+ entrepreneurs</strong> launched their ideas with DoneWell</span>
               </div>
             </div>
             
             <div className="relative">
-              <div className="relative h-[400px] lg:h-[500px] rounded-[var(--radius-xl)] overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border-4 border-white">
+              <div className="relative h-[400px] lg:h-[500px] rounded-[--radius-xl] overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border-4 border-white">
                 <ImageWithFallback 
-                  src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Homepage/Hero.avif"
+                  src="https://images.unsplash.com/photo-1657812159055-7bae416f386d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB3ZWJzaXRlJTIwZGVzaWduJTIwc3VjY2Vzc3xlbnwxfHx8fDE3NjU5ODA0Nzh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
                   alt="Modern website design"
                   className="w-full h-full object-cover rounded-[8px]"
-                  loading="eager"
-                  width={800}
-                  height={500}
                 />
               </div>
               {/* Floating stats card */}
-              <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-[var(--radius-lg)] shadow-[var(--shadow-xl)] border border-[--color-stone-200] rounded-[8px]">
+              <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-[--radius-lg] shadow-[--shadow-xl] border border-[--color-stone-200] rounded-[8px]">
                 <div className="text-4xl bg-gradient-to-br from-[#1a4d2e] to-[#4a6f5a] bg-clip-text text-transparent mb-1">99%</div>
                 <div className="text-sm text-[--color-stone-700]">Average Site Performance</div>
               </div>
@@ -131,8 +128,8 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-white">
             {sortedMetrics.map(metric => (
               <div key={metric.id} className="text-center">
-                <div className="text-3xl md:text-6xl mb-2">{metric.value}</div>
-                <div className="text-sm md:text-base text-white opacity-90">{metric.label}</div>
+                <div className="text-5xl md:text-6xl mb-2">{metric.value}</div>
+                <div className="text-white opacity-90">{metric.label}</div>
               </div>
             ))}
           </div>
@@ -235,7 +232,6 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
                 image={project.keyframeImage}
                 title={project.title}
                 description={project.shortDescription}
-                slug={project.slug}
               />
             ))}
           </div>
@@ -258,8 +254,8 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-[var(--radius-xl)] shadow-[var(--shadow-lg)] border border-[--color-stone-200] rounded-[8px]">
-              <div className="w-14 h-14 rounded-[var(--radius-lg)] bg-gradient-to-br from-[--color-forest-100] to-[--color-sage-100] flex items-center justify-center mb-4">
+            <div className="bg-white p-8 rounded-[--radius-xl] shadow-[--shadow-lg] border border-[--color-stone-200] rounded-[8px]">
+              <div className="w-14 h-14 rounded-[--radius-lg] bg-gradient-to-br from-[--color-forest-100] to-[--color-sage-100] flex items-center justify-center mb-4">
                 <Zap className="text-[--color-forest-600]" size={28} strokeWidth={1.5} />
               </div>
               <h3 className="mb-3 pt-[0px] pr-[0px] pb-[8px] pl-[0px]">Lightning Fast Delivery</h3>
@@ -268,8 +264,8 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
               </p>
             </div>
             
-            <div className="bg-white p-8 rounded-[var(--radius-xl)] shadow-[var(--shadow-lg)] border border-[--color-stone-200] rounded-[8px]">
-              <div className="w-14 h-14 rounded-[var(--radius-lg)] bg-gradient-to-br from-[--color-forest-100] to-[--color-sage-100] flex items-center justify-center mb-4">
+            <div className="bg-white p-8 rounded-[--radius-xl] shadow-[--shadow-lg] border border-[--color-stone-200] rounded-[8px]">
+              <div className="w-14 h-14 rounded-[--radius-lg] bg-gradient-to-br from-[--color-forest-100] to-[--color-sage-100] flex items-center justify-center mb-4">
                 <Users className="text-[--color-forest-600]" size={28} strokeWidth={1.5} />
               </div>
               <h3 className="mb-3 pt-[0px] pr-[0px] pb-[8px] pl-[0px]">Built For Non-Tech People</h3>
@@ -278,8 +274,8 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
               </p>
             </div>
             
-            <div className="bg-white p-8 rounded-[var(--radius-xl)] shadow-[var(--shadow-lg)] border border-[--color-stone-200] rounded-[8px]">
-              <div className="w-14 h-14 rounded-[var(--radius-lg)] bg-gradient-to-br from-[--color-forest-100] to-[--color-sage-100] flex items-center justify-center mb-4">
+            <div className="bg-white p-8 rounded-[--radius-xl] shadow-[--shadow-lg] border border-[--color-stone-200] rounded-[8px]">
+              <div className="w-14 h-14 rounded-[--radius-lg] bg-gradient-to-br from-[--color-forest-100] to-[--color-sage-100] flex items-center justify-center mb-4">
                 <Award className="text-[--color-forest-600]" size={28} strokeWidth={1.5} />
               </div>
               <h3 className="mb-3 pt-[0px] pr-[0px] pb-[8px] pl-[0px]">Premium Quality</h3>
@@ -292,15 +288,16 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
       </section>
       
       {/* CTA BANNER */}
-      <section className="py-24 bg-sage-50 relative overflow-hidden" id="contact">
+      <section className="py-24 bg-gradient-to-br from-[--color-forest-700] to-[--color-sage-700] text-white relative overflow-hidden" id="contact">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE2YzAtMy4zMTQtMi42ODYtNi02LTZzLTYgMi42ODYtNiA2IDIuNjg2IDYgNiA2IDYtMi42ODYgNi02em0wIDI4YzAtMy4zMTQtMi42ODYtNi02LTZzLTYgMi42ODYtNiA2IDIuNjg2IDYgNiA2IDYtMi42ODYgNi02eiIvPjwvZz48L2c+PC9zdmc+')] opacity-40"></div>
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-          <h2 className="text-forest-700 mb-6">Ready to Launch Your Idea?</h2>
+          <h2 className="text-white mb-6">Ready to Launch Your Idea?</h2>
           
-          <p className="text-xl text-stone-700 mb-4 pt-[24px] pr-[0px] pb-[0px] pl-[0px]">
+          <p className="text-xl text-[--color-sage-100] mb-4 pt-[24px] pr-[0px] pb-[0px] pl-[0px]">
             Book a free 30-minute consultation and see how we can bring your vision to life.
           </p>
           
-          <p className="text-stone-600 mb-10 pt-[0px] pr-[0px] pb-[24px] pl-[0px]">
+          <p className="text-[--color-sage-200] mb-10 pt-[0px] pr-[0px] pb-[24px] pl-[0px]">
             No sales pressure. Just honest advice about your project.
           </p>
           
@@ -310,10 +307,10 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
             </Button>
           </div>
           
-          <div className="flex flex-wrap gap-6 justify-center text-sm px-4 text-stone-600">
-            <span>✓ Free consultation</span>
-            <span>✓ No commitment</span>
-            <span>✓ Get a project roadmap</span>
+          <div className="flex flex-wrap gap-6 justify-center text-sm px-4">
+            <span style={{ color: '#2D5943' }}>✓ Free consultation</span>
+            <span style={{ color: '#2D5943' }}>✓ No commitment</span>
+            <span style={{ color: '#2D5943' }}>✓ Get a project roadmap</span>
           </div>
         </div>
       </section>
