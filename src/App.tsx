@@ -5,11 +5,12 @@ import { AboutPage } from './pages/AboutPage';
 import { ProjectDetailPage } from './pages/ProjectDetailPage';
 import { AdminLoginPage } from './pages/AdminLoginPage';
 import { AdminDashboardPage } from './pages/AdminDashboardPage';
+import { UnsubscribePage } from './pages/UnsubscribePage';
 import { AdminProvider, useAdmin } from './contexts/AdminContext';
 
 function AppContent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState<'home' | 'work' | 'about' | 'project' | 'admin'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'work' | 'about' | 'project' | 'admin' | 'unsubscribe'>('home');
   const [currentProjectSlug, setCurrentProjectSlug] = useState('');
   const { isAuthenticated } = useAdmin();
 
@@ -25,6 +26,8 @@ function AppContent() {
       setCurrentPage('about');
     } else if (path === '/admin') {
       setCurrentPage('admin');
+    } else if (path === '/unsubscribe') {
+      setCurrentPage('unsubscribe');
     } else if (path.startsWith('/projects/')) {
       setCurrentPage('project');
       const slug = path.split('/projects/')[1];
@@ -42,6 +45,8 @@ function AppContent() {
         setCurrentPage('about');
       } else if (newPath === '/admin') {
         setCurrentPage('admin');
+      } else if (newPath === '/unsubscribe') {
+        setCurrentPage('unsubscribe');
       } else if (newPath.startsWith('/projects/')) {
         setCurrentPage('project');
         const slug = newPath.split('/projects/')[1];
@@ -75,6 +80,9 @@ function AppContent() {
           } else if (path === '/admin') {
             setCurrentPage('admin');
             window.history.pushState({}, '', '/admin');
+          } else if (path === '/unsubscribe') {
+            setCurrentPage('unsubscribe');
+            window.history.pushState({}, '', '/unsubscribe');
           } else if (path.startsWith('/projects/')) {
             setCurrentPage('project');
             const slug = path.split('/projects/')[1];
@@ -106,6 +114,11 @@ function AppContent() {
     // Force re-render after successful login
     setCurrentPage('admin');
   };
+
+  // Unsubscribe page (standalone, no header/footer)
+  if (currentPage === 'unsubscribe') {
+    return <UnsubscribePage />;
+  }
 
   // Admin pages
   if (currentPage === 'admin') {
