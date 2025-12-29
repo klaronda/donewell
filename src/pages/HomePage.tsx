@@ -103,7 +103,7 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
             <div className="relative">
               <div className="relative h-[400px] lg:h-[500px] rounded-[--radius-xl] overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border-4 border-white">
                 <ImageWithFallback 
-                  src="https://images.unsplash.com/photo-1657812159055-7bae416f386d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB3ZWJzaXRlJTIwZGVzaWduJTIwc3VjY2Vzc3xlbnwxfHx8fDE3NjU5ODA0Nzh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                  src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Homepage/Hero.avif"
                   alt="Modern website design"
                   className="w-full h-full object-cover rounded-[8px]"
                 />
