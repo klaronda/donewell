@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { HomePage } from './pages/HomePage';
 import { WorkPage } from './pages/WorkPage';
 import { AboutPage } from './pages/AboutPage';
+import { HowWeWorkPage } from './pages/HowWeWorkPage';
 import { ProjectDetailPage } from './pages/ProjectDetailPage';
 import { AdminLoginPage } from './pages/AdminLoginPage';
 import { AdminDashboardPage } from './pages/AdminDashboardPage';
@@ -10,7 +11,7 @@ import { AdminProvider, useAdmin } from './contexts/AdminContext';
 
 function AppContent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState<'home' | 'work' | 'about' | 'project' | 'admin' | 'unsubscribe'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'work' | 'about' | 'how-we-work' | 'project' | 'admin' | 'unsubscribe'>('home');
   const [currentProjectSlug, setCurrentProjectSlug] = useState('');
   const { isAuthenticated } = useAdmin();
 
@@ -24,6 +25,8 @@ function AppContent() {
       setCurrentPage('work');
     } else if (path === '/about') {
       setCurrentPage('about');
+    } else if (path === '/how-we-work') {
+      setCurrentPage('how-we-work');
     } else if (path === '/admin') {
       setCurrentPage('admin');
     } else if (path === '/unsubscribe') {
@@ -43,6 +46,8 @@ function AppContent() {
         setCurrentPage('work');
       } else if (newPath === '/about') {
         setCurrentPage('about');
+      } else if (newPath === '/how-we-work') {
+        setCurrentPage('how-we-work');
       } else if (newPath === '/admin') {
         setCurrentPage('admin');
       } else if (newPath === '/unsubscribe') {
@@ -77,6 +82,9 @@ function AppContent() {
           } else if (path === '/about') {
             setCurrentPage('about');
             window.history.pushState({}, '', '/about');
+          } else if (path === '/how-we-work') {
+            setCurrentPage('how-we-work');
+            window.history.pushState({}, '', '/how-we-work');
           } else if (path === '/admin') {
             setCurrentPage('admin');
             window.history.pushState({}, '', '/admin');
@@ -141,6 +149,16 @@ function AppContent() {
   if (currentPage === 'about') {
     return (
       <AboutPage 
+        onGetStartedClick={handleGetStartedClick}
+        isModalOpen={isModalOpen}
+        onModalClose={handleModalClose}
+      />
+    );
+  }
+
+  if (currentPage === 'how-we-work') {
+    return (
+      <HowWeWorkPage 
         onGetStartedClick={handleGetStartedClick}
         isModalOpen={isModalOpen}
         onModalClose={handleModalClose}

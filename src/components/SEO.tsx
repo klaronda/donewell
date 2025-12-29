@@ -7,6 +7,7 @@ interface SEOProps {
   url?: string;
   type?: string;
   keywords?: string;
+  noindex?: boolean;
 }
 
 export function SEO({
@@ -16,6 +17,7 @@ export function SEO({
   url = 'https://donewellco.com',
   type = 'website',
   keywords = 'website design, web development, custom websites, business websites, donewell, web design agency',
+  noindex = false,
 }: SEOProps) {
   useEffect(() => {
     const currentPath = window.location.pathname;
@@ -46,7 +48,7 @@ export function SEO({
     updateMetaTag('description', description);
     updateMetaTag('keywords', keywords);
     updateMetaTag('title', fullTitle);
-    updateMetaTag('robots', 'index, follow');
+    updateMetaTag('robots', noindex ? 'noindex, nofollow' : 'index, follow');
 
     // Open Graph meta tags
     updateMetaTag('og:type', type, true);
@@ -72,7 +74,7 @@ export function SEO({
       document.head.appendChild(canonical);
     }
     canonical.setAttribute('href', fullUrl);
-  }, [title, description, image, url, type, keywords]);
+  }, [title, description, image, url, type, keywords, noindex]);
 
   return null;
 }
