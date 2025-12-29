@@ -11,7 +11,7 @@ interface TestimonialCardProps {
 
 export function TestimonialCard({ quote, author, role, company, image }: TestimonialCardProps) {
   return (
-    <div className="bg-white p-8 rounded-[var(--radius-xl)] shadow-[var(--shadow-lg)] border border-[--color-stone-200] h-full flex flex-col rounded-[8px]">
+    <div className="bg-white p-8 rounded-[--radius-xl] shadow-[--shadow-lg] border border-[--color-stone-200] h-full flex flex-col rounded-[8px]">
       <div className="flex gap-1 mb-4">
         {[...Array(5)].map((_, i) => (
           <Star key={i} size={18} fill="currentColor" className="text-[--color-amber-400]" />
@@ -25,9 +25,6 @@ export function TestimonialCard({ quote, author, role, company, image }: Testimo
           src={image} 
           alt={author}
           className="w-12 h-12 rounded-full object-cover"
-          loading="lazy"
-          width={48}
-          height={48}
         />
         <div>
           <div className="text-[--color-stone-900]">{author}</div>

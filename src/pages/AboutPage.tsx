@@ -2,7 +2,6 @@ import React from 'react';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { GetStartedModal } from '../components/GetStartedModal';
-import { SEO } from '../components/SEO';
 import { CheckCircle2 } from 'lucide-react';
 
 interface AboutPageProps {
@@ -14,11 +13,6 @@ interface AboutPageProps {
 export function AboutPage({ onGetStartedClick, isModalOpen, onModalClose }: AboutPageProps) {
   return (
     <div className="min-h-screen">
-      <SEO 
-        title="About DoneWell - Helping People Bring Their Ideas to Life"
-        description="DoneWell exists to help people bring their ideas to life — thoughtfully, professionally, and without unnecessary complexity. We believe good digital work starts with understanding."
-        url="https://donewellco.com/about"
-      />
       <Header onGetStartedClick={onGetStartedClick} />
       
       {/* Hero Section */}
@@ -170,13 +164,13 @@ export function AboutPage({ onGetStartedClick, isModalOpen, onModalClose }: Abou
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-sage-50">
+      <section className="py-20 bg-gradient-to-br from-[--color-forest-700] to-[--color-sage-700] text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-forest-700 mb-4 pt-[0px] pr-[0px] pb-[16px] pl-[0px]">Let's Get Started</h2>
-          <p className="text-xl text-stone-700 mb-4">
+          <h2 className="text-white mb-4 pt-[0px] pr-[0px] pb-[16px] pl-[0px]">Let's Get Started</h2>
+          <p className="text-xl text-[--color-sage-100] mb-4">
             If you have an idea you'd like to explore, or a website that needs improvement, we'd love to talk.
           </p>
-          <p className="text-lg text-stone-600 mb-8 pt-[0px] pr-[0px] pb-[24px] pl-[0px]">
+          <p className="text-lg text-[--color-sage-100] mb-8 pt-[0px] pr-[0px] pb-[24px] pl-[0px]">
             You don't need a perfect plan — just a place to start.
           </p>
           <button 

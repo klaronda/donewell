@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export interface Project {
   id: string;
@@ -27,9 +28,6 @@ export interface Project {
     title: string;
     description: string;
   }>;
-  
-  // Live website URL
-  liveWebsiteUrl?: string;
 }
 
 interface ProjectCardProps {
@@ -40,16 +38,21 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <a 
       href={`/projects/${project.slug}`}
-      className="group block bg-white rounded-[8px] overflow-hidden shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-xl)] transition-all duration-300 border border-[--color-stone-200]"
+      className="group block bg-white rounded-[8px] overflow-hidden shadow-[--shadow-md] hover:shadow-[--shadow-xl] transition-all duration-300 border border-[--color-stone-200]"
     >
       {/* Image */}
       <div className="relative aspect-video overflow-hidden bg-[--color-stone-100]">
-        <img 
+        <ImageWithFallback 
           src={project.keyframeImage} 
           alt={project.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          loading="lazy"
         />
+        {/* Badge */}
+        {project.badge && (
+          <div className="absolute top-4 left-4 px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-full text-xs tracking-wide text-[--color-forest-700]">
+            {project.badge}
+          </div>
+        )}
         {/* Metric */}
         {project.metricValue && (
           <div className="absolute bottom-4 right-4 bg-[--color-forest-700] text-white px-4 py-2 rounded-lg">
@@ -61,17 +64,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
       {/* Content */}
       <div className="p-6">
-        <div className="flex items-center gap-3 mb-3">
-          <h4 className="group-hover:text-[--color-forest-700] transition-colors">
-            {project.title}
-          </h4>
-          {/* Badge */}
-          {project.badge && (
-            <div className="px-3 py-1 bg-[--color-sage-100] rounded-full text-xs tracking-wide text-[--color-forest-700] font-medium whitespace-nowrap">
-              {project.badge}
-            </div>
-          )}
-        </div>
+        <h4 className="mb-3 group-hover:text-[--color-forest-700] transition-colors">
+          {project.title}
+        </h4>
         <p className="text-[--color-stone-600] mb-4 leading-relaxed pt-[0px] pr-[0px] pb-[16px] pl-[0px]">
           {project.shortDescription}
         </p>

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Linkedin, Twitter, Instagram, Settings } from 'lucide-react';
-import logoWhite from '../../assets/Logo_wh.svg';
+import { Linkedin, Twitter, Instagram, Leaf, Settings } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -9,16 +8,10 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <a href="/" className="hover:opacity-80 transition-opacity">
-                <img 
-                  src={logoWhite} 
-                  alt="DoneWell" 
-                  className="h-8 w-auto opacity-90"
-                  loading="lazy"
-                  width={120}
-                  height={32}
-                />
-              </a>
+              <div className="w-8 h-8 rounded-[--radius-sm] bg-[rgb(255,255,255)] flex items-center justify-center rounded-[8px]">
+                <Leaf className="w-5 h-5 !text-[#1B4D2E]" />
+              </div>
+              <h5 className="!text-white">DoneWell</h5>
             </div>
             <p className="!text-white text-base">
               Professional websites designed, built, and launched with care.
@@ -30,14 +23,20 @@ export function Footer() {
               Navigation
             </h5>
             <nav className="flex flex-col gap-3">
-              <a href="/" className="!text-white hover:!text-white transition-colors">
+              <a href="#home" className="!text-white hover:!text-white transition-colors">
                 Home
               </a>
-              <a href="/work" className="!text-white hover:!text-white transition-colors">
+              <a href="#services" className="!text-white hover:!text-white transition-colors">
+                Services
+              </a>
+              <a href="#work" className="!text-white hover:!text-white transition-colors">
                 Work
               </a>
-              <a href="/about" className="!text-white hover:!text-white transition-colors">
+              <a href="#about" className="!text-white hover:!text-white transition-colors">
                 About
+              </a>
+              <a href="#contact" className="!text-white hover:!text-white transition-colors">
+                Contact
               </a>
             </nav>
           </div>
@@ -68,22 +67,20 @@ export function Footer() {
               >
                 <Instagram size={20} />
               </a>
+              <a 
+                href="/admin" 
+                className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors !text-white opacity-30 hover:opacity-50"
+                aria-label="Admin"
+                title="Admin"
+              >
+                <Settings size={16} />
+              </a>
             </div>
           </div>
         </div>
         
         <div className="pt-8 border-t border-white/10 text-center !text-white text-sm">
-          <div className="flex items-center justify-center gap-2">
-            <p className="!text-white">&copy; {new Date().getFullYear()} DoneWell. All rights reserved.</p>
-            <a 
-              href="/admin" 
-              className="inline-flex items-center justify-center transition-colors !text-white opacity-30 hover:opacity-50"
-              aria-label="Admin"
-              title="Admin"
-            >
-              <Settings size={16} />
-            </a>
-          </div>
+          <p className="!text-white">&copy; 2024 DoneWell. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -6,20 +6,16 @@ interface CaseStudyCardProps {
   image: string;
   title: string;
   description: string;
-  slug: string;
 }
 
-export function CaseStudyCard({ image, title, description, slug }: CaseStudyCardProps) {
+export function CaseStudyCard({ image, title, description }: CaseStudyCardProps) {
   return (
-    <a 
-      href={`/projects/${slug}`}
-      className="block bg-white rounded-[var(--radius-xl)] overflow-hidden shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-xl)] transition-all duration-300 hover:-translate-y-1 border border-[--color-stone-200]"
-    >
+    <div className="bg-white rounded-[--radius-xl] overflow-hidden shadow-[--shadow-md] hover:shadow-[--shadow-xl] transition-all duration-300 hover:-translate-y-1">
       <div className="aspect-video w-full overflow-hidden bg-[--color-sand-100]">
         <ImageWithFallback 
           src={image} 
           alt={title}
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 rounded-t-[8px]"
+          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 rounded-[8px]"
         />
       </div>
       <div className="p-6">
@@ -29,6 +25,6 @@ export function CaseStudyCard({ image, title, description, slug }: CaseStudyCard
           View Project
         </Button>
       </div>
-    </a>
+    </div>
   );
 }

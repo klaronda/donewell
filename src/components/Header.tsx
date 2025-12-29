@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from './Button';
-import logo from '../../assets/Logo.svg';
+import { Leaf } from 'lucide-react';
 
 interface HeaderProps {
   onGetStartedClick?: () => void;
@@ -10,20 +10,16 @@ export function Header({ onGetStartedClick }: HeaderProps) {
   return (
     <header className="bg-white/80 backdrop-blur-sm sticky top-0 z-50 border-b border-[--color-sand-200]">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center flex-shrink-0">
-          <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <img 
-              src={logo} 
-              alt="DoneWell" 
-              className="h-8 w-auto"
-              loading="eager"
-              width={120}
-              height={32}
-            />
+        <div className="flex items-center">
+          <a href="/" className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-[--radius-sm] bg-[#1a4d2e] flex items-center justify-center rounded-[8px]">
+              <Leaf className="w-5 h-5 text-white" />
+            </div>
+            <h5 className="tracking-tight">DoneWell</h5>
           </a>
         </div>
         
-        <nav className="hidden md:flex items-center gap-8 flex-1 justify-center">
+        <nav className="hidden md:flex items-center gap-8">
           <a href="/" className="text-[--color-stone-700] hover:text-[--color-forest-700] transition-colors font-semibold">
             Home
           </a>
@@ -35,9 +31,9 @@ export function Header({ onGetStartedClick }: HeaderProps) {
           </a>
         </nav>
         
-        <div className="flex items-center gap-4 flex-shrink-0">
+        <div className="flex items-center gap-4">
           <Button variant="primary" size="medium" onClick={onGetStartedClick}>
-            <span className="whitespace-nowrap text-sm md:text-base">Book a Consult</span>
+            Book a Consult
           </Button>
         </div>
       </div>

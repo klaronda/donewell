@@ -3,7 +3,6 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { ProjectCard } from '../components/ProjectCard';
 import { GetStartedModal } from '../components/GetStartedModal';
-import { SEO } from '../components/SEO';
 import { useAdmin } from '../contexts/AdminContext';
 
 interface WorkPageProps {
@@ -21,11 +20,6 @@ export function WorkPage({ onGetStartedClick, isModalOpen, onModalClose }: WorkP
 
   return (
     <div className="min-h-screen">
-      <SEO 
-        title="Our Work - Live Projects That Drive Results"
-        description="See how we've helped entrepreneurs launch, grow, and succeed online. Every project we build is designed to help businesses launch faster and attract customers."
-        url="https://donewellco.com/work"
-      />
       <Header onGetStartedClick={onGetStartedClick} />
       
       {/* Hero Section */}

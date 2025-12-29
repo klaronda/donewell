@@ -150,7 +150,7 @@ serve(async (req) => {
 
 <p>—</p>
 
-<p>If you'd rather not receive messages like this, you can opt out here:<br><a href="${unsubscribeUrl}">${unsubscribeUrl}</a></p>`
+<p>If you'd rather not receive messages like this, you can opt out <a href="${unsubscribeUrl}">here</a>.</p>`
 
       // Store email draft in database
       const { data: emailDraft, error: draftError } = await supabase
@@ -273,7 +273,7 @@ Body Structure (HTML Format):
 
 <p>—</p>
 
-<p>If this isn't relevant or you'd prefer not to receive notes like this, you can ask to be removed here:<br><a href="https://donewellco.com/unsubscribe?email=${encodeURIComponent(lead.email)}">https://donewellco.com/unsubscribe?email=${encodeURIComponent(lead.email)}</a></p>
+<p>If this isn't relevant or you'd prefer not to receive notes like this, you can ask to be removed <a href="https://donewellco.com/unsubscribe?email=${encodeURIComponent(lead.email)}">here</a>.</p>
 
 Adaptive Instructions (CRITICAL - Adapt Based on Which Score is Lowest):
 
@@ -343,7 +343,7 @@ CRITICAL REQUIREMENTS:
 5. Tie to first impressions, trust, or people leaving early
 6. Emphasize fixes are contained, no redesign needed
 7. Signature exactly: <p>Happy to chat,<br><b>Kevin L.</b><br><a href="https://donewellco.com">DoneWell Design Co</a></p>
-8. Include unsubscribe link at bottom: <p>—</p><p>If this isn't relevant or you'd prefer not to receive notes like this, you can ask to be removed here:<br><a href="https://donewellco.com/unsubscribe?email=${encodeURIComponent(lead.email)}">https://donewellco.com/unsubscribe?email=${encodeURIComponent(lead.email)}</a></p>
+8. Include unsubscribe link at bottom: <p>—</p><p>If this isn't relevant or you'd prefer not to receive notes like this, you can ask to be removed <a href="https://donewellco.com/unsubscribe?email=${encodeURIComponent(lead.email)}">here</a>.</p>
 9. NO technical jargon, tools, or implementation details
 10. Focus on "homepage" throughout, not "website" or "site"`
 
@@ -361,7 +361,7 @@ CRITICAL REQUIREMENTS:
         messages: [
           {
             role: 'system',
-            content: 'You are a senior client-services writer for DoneWell Design Co. You write calm, factual, human emails in simple, non-technical language. You NEVER use technical jargon, tool recommendations, or implementation details. You write like you\'re emailing a peer. Always return valid JSON only: {"subject": "string", "body": "string"}. The subject MUST be exactly "A quick note after reviewing your homepage". The body MUST use HTML formatting: <p> tags for paragraphs, <b> for bold, <a> for links, and <br> for line breaks. Always include exact scores (Performance, SEO, Accessibility). Adapt your explanation based on which score is actually lowest - focus on that score while acknowledging strengths if scores are mixed. Explain what the lowest score means in plain language, focusing on "homepage" not "website". Tie issues to first impressions, trust, or people leaving early. Emphasize fixes are contained, no redesign needed. The signature MUST be exactly: "<p>Happy to chat,<br><b>Kevin L.</b><br><a href=\\"https://donewellco.com\\">DoneWell Design Co</a></p>". Include unsubscribe link at bottom. No markdown or extra commentary.'
+            content: 'You are a senior client-services writer for DoneWell Design Co. You write calm, factual, human emails in simple, non-technical language. You NEVER use technical jargon, tool recommendations, or implementation details. You write like you\'re emailing a peer. Always return valid JSON only: {"subject": "string", "body": "string"}. The subject MUST be exactly "A quick note after reviewing your homepage". The body MUST use HTML formatting: <p> tags for paragraphs, <b> for bold, <a> for links, and <br> for line breaks. Always include exact scores (Performance, SEO, Accessibility). Adapt your explanation based on which score is actually lowest - focus on that score while acknowledging strengths if scores are mixed. Explain what the lowest score means in plain language, focusing on "homepage" not "website". Tie issues to first impressions, trust, or people leaving early. Emphasize fixes are contained, no redesign needed. The signature MUST be exactly: "<p>Happy to chat,<br><b>Kevin L.</b><br><a href=\\"https://donewellco.com\\">DoneWell Design Co</a></p>". Include unsubscribe link at bottom: "<p>—</p><p>If this isn\'t relevant or you\'d prefer not to receive notes like this, you can ask to be removed <a href=\\"[unsubscribe_url]\\">here</a>.</p>" - make "here" the link text, not the full URL, and use a period instead of a colon. No markdown or extra commentary.'
           },
           {
             role: 'user',

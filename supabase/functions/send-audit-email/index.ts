@@ -65,6 +65,7 @@ serve(async (req) => {
       .from('email_drafts')
       .select(`
         *,
+        lead_id,
         lead_sites (
           company_name,
           contact_name,
@@ -108,20 +109,32 @@ serve(async (req) => {
     }
 
     // Check if email is suppressed
+    const normalizedEmail = lead.email.toLowerCase().trim()
     const { data: suppressed, error: suppressionError } = await supabase
       .from('email_suppression')
-      .select('id')
-      .eq('email', lead.email.toLowerCase().trim())
+      .select('id, reason, suppressed_at')
+      .eq('email', normalizedEmail)
       .limit(1)
       .single()
 
     if (!suppressionError && suppressed) {
-      console.log('⏭️ Skipping email send - email is suppressed:', lead.email)
+      // Update lead status to 'suppressed'
+      if (emailDraft.lead_id) {
+        await supabase
+          .from('lead_sites')
+          .update({ status: 'suppressed' })
+          .eq('id', emailDraft.lead_id)
+      }
+
+      console.log(`🚫 Email not delivered - customer on suppression list: ${lead.email} (suppressed at: ${suppressed.suppressed_at}, reason: ${suppressed.reason || 'none'})`)
+      
       return new Response(
         JSON.stringify({ 
           success: false,
           error: 'Email is suppressed',
-          message: 'This email address has been unsubscribed and will not receive emails'
+          message: 'This email address has been unsubscribed and will not receive emails',
+          suppressed_at: suppressed.suppressed_at,
+          suppression_reason: suppressed.reason
         }),
         {
           status: 200,

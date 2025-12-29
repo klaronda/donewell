@@ -1,152 +1,233 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
-import { useProjects } from '../hooks/useProjects';
-import { useTestimonials } from '../hooks/useTestimonials';
-import { useMetrics } from '../hooks/useMetrics';
-import { useLeads } from '../hooks/useLeads';
 import { Project } from '../components/ProjectCard';
-import { Testimonial, Metric, Lead } from '../types/database';
+import { mockProjects } from '../data/mockProjects';
+
+export interface Testimonial {
+  id: string;
+  name: string;
+  role: string;
+  company: string;
+  quote: string;
+  image?: string;
+  order: number;
+  showOnHomepage: boolean;
+}
+
+export interface Metric {
+  id: string;
+  value: string;
+  label: string;
+  order: number;
+}
 
 interface AdminContextType {
   // Auth
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<boolean>;
-  logout: () => Promise<void>;
-  loading: boolean;
+  login: (email: string, password: string) => boolean;
+  logout: () => void;
 
   // Projects
   projects: Project[];
-  addProject: (project: Omit<Project, 'id'>) => Promise<void>;
-  updateProject: (id: string, project: Partial<Project>) => Promise<void>;
-  deleteProject: (id: string) => Promise<void>;
+  addProject: (project: Omit<Project, 'id'>) => void;
+  updateProject: (id: string, project: Partial<Project>) => void;
+  deleteProject: (id: string) => void;
 
   // Testimonials
   testimonials: Testimonial[];
-  addTestimonial: (testimonial: Omit<Testimonial, 'id'>) => Promise<void>;
-  updateTestimonial: (id: string, testimonial: Partial<Testimonial>) => Promise<void>;
-  deleteTestimonial: (id: string) => Promise<void>;
+  addTestimonial: (testimonial: Omit<Testimonial, 'id'>) => void;
+  updateTestimonial: (id: string, testimonial: Partial<Testimonial>) => void;
+  deleteTestimonial: (id: string) => void;
 
   // Metrics
   metrics: Metric[];
-  addMetric: (metric: Omit<Metric, 'id'>) => Promise<void>;
-  updateMetric: (id: string, metric: Partial<Metric>) => Promise<void>;
-  deleteMetric: (id: string) => Promise<void>;
-
-  // Leads
-  leads: Lead[];
-  deleteLead: (id: string) => Promise<void>;
+  addMetric: (metric: Omit<Metric, 'id'>) => void;
+  updateMetric: (id: string, metric: Partial<Metric>) => void;
+  deleteMetric: (id: string) => void;
 }
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
+const STORAGE_KEYS = {
+  AUTH: 'donewell_admin_auth',
+  PROJECTS: 'donewell_projects',
+  TESTIMONIALS: 'donewell_testimonials',
+  METRICS: 'donewell_metrics',
+  CREDENTIALS: 'donewell_admin_credentials',
+};
+
+// Default admin credentials - in production this would be handled by a real auth system
+const DEFAULT_ADMIN_EMAIL = 'admin@donewell.com';
+const DEFAULT_ADMIN_PASSWORD = 'donewell2024';
+
 export function AdminProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [metrics, setMetrics] = useState<Metric[]>([]);
 
-  // Use Supabase hooks for data
-  const projectsHook = useProjects();
-  const testimonialsHook = useTestimonials();
-  const metricsHook = useMetrics();
-  const leadsHook = useLeads();
-
-  // Check auth status on mount and on auth state changes
+  // Load data from localStorage on mount
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        setIsAuthenticated(!!session);
-      } catch (err) {
-        console.error('Error checking auth:', err);
-        setIsAuthenticated(false);
-      } finally {
-        setLoading(false);
-      }
-    };
+    const authStatus = localStorage.getItem(STORAGE_KEYS.AUTH);
+    setIsAuthenticated(authStatus === 'true');
 
-    checkAuth();
+    const storedProjects = localStorage.getItem(STORAGE_KEYS.PROJECTS);
+    if (storedProjects) {
+      setProjects(JSON.parse(storedProjects));
+    } else {
+      // Initialize with mock data if nothing in storage
+      setProjects(mockProjects);
+      localStorage.setItem(STORAGE_KEYS.PROJECTS, JSON.stringify(mockProjects));
+    }
 
-    // Listen for auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setIsAuthenticated(!!session);
-    });
+    const storedTestimonials = localStorage.getItem(STORAGE_KEYS.TESTIMONIALS);
+    if (storedTestimonials) {
+      setTestimonials(JSON.parse(storedTestimonials));
+    } else {
+      // Initialize with default testimonials
+      const defaultTestimonials: Testimonial[] = [
+        {
+          id: '1',
+          name: 'Sarah Johnson',
+          role: 'Founder',
+          company: 'Strategy Partners',
+          quote: 'DoneWell transformed our online presence. Within a month of launching, we booked 12 new clients. Their attention to detail and understanding of our business was exceptional.',
+          order: 1,
+          showOnHomepage: true,
+        },
+        {
+          id: '2',
+          name: 'Michael Chen',
+          role: 'Creative Director',
+          company: 'Studio Bright',
+          quote: 'The redesign exceeded all expectations. Our lead generation increased by 340% in just 60 days. The team was professional, responsive, and truly understood our vision.',
+          order: 2,
+          showOnHomepage: true,
+        },
+      ];
+      setTestimonials(defaultTestimonials);
+      localStorage.setItem(STORAGE_KEYS.TESTIMONIALS, JSON.stringify(defaultTestimonials));
+    }
 
-    return () => {
-      subscription.unsubscribe();
-    };
+    const storedMetrics = localStorage.getItem(STORAGE_KEYS.METRICS);
+    if (storedMetrics) {
+      setMetrics(JSON.parse(storedMetrics));
+    } else {
+      // Initialize with default metrics
+      const defaultMetrics: Metric[] = [
+        { id: '1', value: '50+', label: 'Projects Delivered', order: 1 },
+        { id: '2', value: '98%', label: 'Client Satisfaction', order: 2 },
+        { id: '3', value: '2 weeks', label: 'Average Timeline', order: 3 },
+        { id: '4', value: '24/7', label: 'Support Available', order: 4 },
+      ];
+      setMetrics(defaultMetrics);
+      localStorage.setItem(STORAGE_KEYS.METRICS, JSON.stringify(defaultMetrics));
+    }
   }, []);
 
-  // Auth functions using Supabase Auth
-  const login = async (email: string, password: string): Promise<boolean> => {
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) {
-        console.error('Login error:', error);
-        return false;
+  // Auth functions
+  const login = (email: string, password: string): boolean => {
+    const storedCredentials = localStorage.getItem(STORAGE_KEYS.CREDENTIALS);
+    if (storedCredentials) {
+      const credentials = JSON.parse(storedCredentials);
+      if (email === credentials.email && password === credentials.password) {
+        setIsAuthenticated(true);
+        localStorage.setItem(STORAGE_KEYS.AUTH, 'true');
+        return true;
       }
-
-      setIsAuthenticated(!!data.session);
-      return true;
-    } catch (err) {
-      console.error('Login error:', err);
-      return false;
+    } else {
+      // Initialize with default credentials if nothing in storage
+      const defaultCredentials = {
+        email: DEFAULT_ADMIN_EMAIL,
+        password: DEFAULT_ADMIN_PASSWORD,
+      };
+      localStorage.setItem(STORAGE_KEYS.CREDENTIALS, JSON.stringify(defaultCredentials));
+      if (email === DEFAULT_ADMIN_EMAIL && password === DEFAULT_ADMIN_PASSWORD) {
+        setIsAuthenticated(true);
+        localStorage.setItem(STORAGE_KEYS.AUTH, 'true');
+        return true;
+      }
     }
+    return false;
   };
 
-  const logout = async (): Promise<void> => {
-    try {
-      await supabase.auth.signOut();
-      setIsAuthenticated(false);
-    } catch (err) {
-      console.error('Logout error:', err);
-    }
+  const logout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem(STORAGE_KEYS.AUTH);
   };
 
-  // Project functions (wrapped to match interface)
-  const addProject = async (project: Omit<Project, 'id'>): Promise<void> => {
-    await projectsHook.addProject(project);
+  // Project functions
+  const addProject = (project: Omit<Project, 'id'>) => {
+    const newProject: Project = {
+      ...project,
+      id: Date.now().toString(),
+    };
+    const updatedProjects = [...projects, newProject];
+    setProjects(updatedProjects);
+    localStorage.setItem(STORAGE_KEYS.PROJECTS, JSON.stringify(updatedProjects));
   };
 
-  const updateProject = async (id: string, updates: Partial<Project>): Promise<void> => {
-    await projectsHook.updateProject(id, updates);
+  const updateProject = (id: string, updates: Partial<Project>) => {
+    const updatedProjects = projects.map(p => 
+      p.id === id ? { ...p, ...updates } : p
+    );
+    setProjects(updatedProjects);
+    localStorage.setItem(STORAGE_KEYS.PROJECTS, JSON.stringify(updatedProjects));
   };
 
-  const deleteProject = async (id: string): Promise<void> => {
-    await projectsHook.deleteProject(id);
+  const deleteProject = (id: string) => {
+    const updatedProjects = projects.filter(p => p.id !== id);
+    setProjects(updatedProjects);
+    localStorage.setItem(STORAGE_KEYS.PROJECTS, JSON.stringify(updatedProjects));
   };
 
-  // Testimonial functions (wrapped to match interface)
-  const addTestimonial = async (testimonial: Omit<Testimonial, 'id'>): Promise<void> => {
-    await testimonialsHook.addTestimonial(testimonial);
+  // Testimonial functions
+  const addTestimonial = (testimonial: Omit<Testimonial, 'id'>) => {
+    const newTestimonial: Testimonial = {
+      ...testimonial,
+      id: Date.now().toString(),
+    };
+    const updatedTestimonials = [...testimonials, newTestimonial];
+    setTestimonials(updatedTestimonials);
+    localStorage.setItem(STORAGE_KEYS.TESTIMONIALS, JSON.stringify(updatedTestimonials));
   };
 
-  const updateTestimonial = async (id: string, updates: Partial<Testimonial>): Promise<void> => {
-    await testimonialsHook.updateTestimonial(id, updates);
+  const updateTestimonial = (id: string, updates: Partial<Testimonial>) => {
+    const updatedTestimonials = testimonials.map(t => 
+      t.id === id ? { ...t, ...updates } : t
+    );
+    setTestimonials(updatedTestimonials);
+    localStorage.setItem(STORAGE_KEYS.TESTIMONIALS, JSON.stringify(updatedTestimonials));
   };
 
-  const deleteTestimonial = async (id: string): Promise<void> => {
-    await testimonialsHook.deleteTestimonial(id);
+  const deleteTestimonial = (id: string) => {
+    const updatedTestimonials = testimonials.filter(t => t.id !== id);
+    setTestimonials(updatedTestimonials);
+    localStorage.setItem(STORAGE_KEYS.TESTIMONIALS, JSON.stringify(updatedTestimonials));
   };
 
-  // Metric functions (wrapped to match interface)
-  const addMetric = async (metric: Omit<Metric, 'id'>): Promise<void> => {
-    await metricsHook.addMetric(metric);
+  // Metric functions
+  const addMetric = (metric: Omit<Metric, 'id'>) => {
+    const newMetric: Metric = {
+      ...metric,
+      id: Date.now().toString(),
+    };
+    const updatedMetrics = [...metrics, newMetric];
+    setMetrics(updatedMetrics);
+    localStorage.setItem(STORAGE_KEYS.METRICS, JSON.stringify(updatedMetrics));
   };
 
-  const updateMetric = async (id: string, updates: Partial<Metric>): Promise<void> => {
-    await metricsHook.updateMetric(id, updates);
+  const updateMetric = (id: string, updates: Partial<Metric>) => {
+    const updatedMetrics = metrics.map(m => 
+      m.id === id ? { ...m, ...updates } : m
+    );
+    setMetrics(updatedMetrics);
+    localStorage.setItem(STORAGE_KEYS.METRICS, JSON.stringify(updatedMetrics));
   };
 
-  const deleteMetric = async (id: string): Promise<void> => {
-    await metricsHook.deleteMetric(id);
-  };
-
-  // Lead functions (read-only for admin, leads are created via form)
-  const deleteLead = async (id: string): Promise<void> => {
-    await leadsHook.deleteLead(id);
+  const deleteMetric = (id: string) => {
+    const updatedMetrics = metrics.filter(m => m.id !== id);
+    setMetrics(updatedMetrics);
+    localStorage.setItem(STORAGE_KEYS.METRICS, JSON.stringify(updatedMetrics));
   };
 
   return (
@@ -155,21 +236,18 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         isAuthenticated,
         login,
         logout,
-        loading: loading || projectsHook.loading || testimonialsHook.loading || metricsHook.loading || leadsHook.loading,
-        projects: projectsHook.projects,
+        projects,
         addProject,
         updateProject,
         deleteProject,
-        testimonials: testimonialsHook.testimonials,
+        testimonials,
         addTestimonial,
         updateTestimonial,
         deleteTestimonial,
-        metrics: metricsHook.metrics,
+        metrics,
         addMetric,
         updateMetric,
         deleteMetric,
-        leads: leadsHook.leads,
-        deleteLead,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useLayoutEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { 
   Bold, 
   Italic, 
@@ -25,56 +25,19 @@ export function RichTextEditor({ value, onChange, placeholder, label }: RichText
   const editorRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUserTyping, setIsUserTyping] = useState(false);
-  const lastValueRef = useRef<string>('');
-  const isInitialMountRef = useRef<boolean>(true);
-  const previousValueRef = useRef<string>('');
+  const lastValueRef = useRef<string>(value || '');
 
-  // Initialize content on mount - always set the initial value
-  // Use useLayoutEffect to ensure it runs synchronously before paint
-  useLayoutEffect(() => {
-    if (editorRef.current && isInitialMountRef.current) {
-      const initialValue = value || '';
-      console.log(`RichTextEditor mount - label: ${label}, value length: ${initialValue.length}, value:`, initialValue.substring(0, 50));
-      editorRef.current.innerHTML = initialValue;
-      lastValueRef.current = initialValue;
-      previousValueRef.current = initialValue;
-      isInitialMountRef.current = false;
-    }
-  }, []); // Only run on mount
-
-  // Update content when value changes externally (not from user typing)
-  // This handles both initial mount (after the mount effect) and subsequent updates
+  // Initialize content on mount and when value changes externally
   useEffect(() => {
-    if (editorRef.current) {
+    if (editorRef.current && !isUserTyping) {
       const newValue = value || '';
-      
-      // If this is still the initial mount, wait for the mount effect
-      if (isInitialMountRef.current) {
-        // But if we have a value and the editor is empty, initialize it
-        if (newValue && editorRef.current.innerHTML === '') {
-          console.log(`RichTextEditor late init - label: ${label}, value length: ${newValue.length}`);
-          editorRef.current.innerHTML = newValue;
-          lastValueRef.current = newValue;
-          previousValueRef.current = newValue;
-          isInitialMountRef.current = false;
-        }
-        return;
-      }
-      
-      // If user is typing, don't overwrite their changes
-      if (isUserTyping) {
-        return;
-      }
-      
       // Only update if the value actually changed from outside
-      if (previousValueRef.current !== newValue) {
-        console.log(`RichTextEditor update - label: ${label}, value length: ${newValue.length}`);
+      if (lastValueRef.current !== newValue) {
         editorRef.current.innerHTML = newValue;
         lastValueRef.current = newValue;
-        previousValueRef.current = newValue;
       }
     }
-  }, [value, isUserTyping, label]);
+  }, [value, isUserTyping]);
 
   const execCommand = (command: string, value?: string) => {
     document.execCommand(command, false, value);
@@ -85,7 +48,6 @@ export function RichTextEditor({ value, onChange, placeholder, label }: RichText
     if (editorRef.current) {
       const newContent = editorRef.current.innerHTML;
       lastValueRef.current = newContent;
-      previousValueRef.current = newContent;
       onChange(newContent);
     }
   };
@@ -101,15 +63,6 @@ export function RichTextEditor({ value, onChange, placeholder, label }: RichText
 
   const handleBlur = () => {
     setIsUserTyping(false);
-    // Sync the editor content with the value prop after blur
-    if (editorRef.current) {
-      const currentContent = editorRef.current.innerHTML;
-      const expectedValue = value || '';
-      if (currentContent !== expectedValue) {
-        editorRef.current.innerHTML = expectedValue;
-        lastValueRef.current = expectedValue;
-      }
-    }
   };
 
   const insertLink = () => {

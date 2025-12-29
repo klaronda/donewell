@@ -5,13 +5,10 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
-  size?: 'default' | 'large';
 }
 
-export function Modal({ isOpen, onClose, children, size = 'default' }: ModalProps) {
+export function Modal({ isOpen, onClose, children }: ModalProps) {
   if (!isOpen) return null;
-
-  const maxWidthClass = size === 'large' ? 'max-w-4xl' : 'max-w-2xl';
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -22,7 +19,7 @@ export function Modal({ isOpen, onClose, children, size = 'default' }: ModalProp
       />
       
       {/* Modal */}
-      <div className={`relative bg-white rounded-[var(--radius-xl)] ${maxWidthClass} w-full max-h-[90vh] overflow-y-auto shadow-2xl`}>
+      <div className="relative bg-white rounded-[--radius-xl] max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
         {/* Close button */}
         <button
           onClick={onClose}

@@ -3,7 +3,6 @@ import { useAdmin } from '../../contexts/AdminContext';
 import { Plus, Edit2, Trash2, Eye, EyeOff, Save, X, Upload } from 'lucide-react';
 import { Project } from '../ProjectCard';
 import { RichTextEditor } from './RichTextEditor';
-import { uploadImage } from '../../lib/storage';
 
 export function ProjectsManager() {
   const { projects, addProject, updateProject, deleteProject } = useAdmin();
@@ -30,38 +29,15 @@ export function ProjectsManager() {
       ourActions: '',
       results: '',
       resultMetrics: [],
-      liveWebsiteUrl: '',
     });
   };
 
   const handleEdit = (project: Project) => {
     setEditingId(project.id);
-    // Ensure all rich text fields are strings, not null/undefined
-    const formData = {
+    setFormData({
       ...project,
-      summary: project.summary ?? '',
-      problem: project.problem ?? '',
-      objective: project.objective ?? '',
-      ourActions: project.ourActions ?? '',
-      results: project.results ?? '',
-      resultMetrics: project.resultMetrics ?? [],
-      liveWebsiteUrl: project.liveWebsiteUrl ?? '',
-    };
-    console.log('handleEdit - project data:', {
-      summary: project.summary,
-      problem: project.problem,
-      objective: project.objective,
-      ourActions: project.ourActions,
-      results: project.results,
+      resultMetrics: project.resultMetrics || [],
     });
-    console.log('handleEdit - formData:', {
-      summary: formData.summary,
-      problem: formData.problem,
-      objective: formData.objective,
-      ourActions: formData.ourActions,
-      results: formData.results,
-    });
-    setFormData(formData);
   };
 
   const handleSave = () => {
@@ -94,44 +70,16 @@ export function ProjectsManager() {
     updateProject(project.id, { [field]: !project[field] });
   };
 
-  // Image upload handler - uploads to Supabase Storage
-  const [uploadingImage, setUploadingImage] = useState(false);
-  
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Image upload handler
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file) return;
-
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      alert('Please select an image file');
-      return;
-    }
-
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      alert('Image size must be less than 5MB');
-      return;
-    }
-
-    setUploadingImage(true);
-    try {
-      // Generate unique path: projects/{projectId or 'new'}/{timestamp}-{filename}
-      const projectId = editingId || 'new';
-      const timestamp = Date.now();
-      const fileExt = file.name.split('.').pop();
-      const fileName = file.name.replace(/\.[^/.]+$/, '').replace(/[^a-z0-9]/gi, '-').toLowerCase();
-      const path = `projects/${projectId}/${timestamp}-${fileName}.${fileExt}`;
-
-      // Upload to Supabase Storage
-      const publicUrl = await uploadImage('site-assets', file, path);
-      
-      // Update form data with public URL
-      setFormData({ ...formData, keyframeImage: publicUrl });
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      alert(`Failed to upload image: ${error instanceof Error ? error.message : 'Unknown error'}`);
-    } finally {
-      setUploadingImage(false);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const imageData = reader.result as string;
+        setFormData({ ...formData, keyframeImage: imageData });
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -237,17 +185,6 @@ export function ProjectsManager() {
                   placeholder="Brief project description for cards"
                 />
               </div>
-              <div className="md:col-span-2">
-                <label className="block text-sm mb-2 text-[--color-stone-700]">Live Website URL</label>
-                <input
-                  type="url"
-                  value={formData.liveWebsiteUrl || ''}
-                  onChange={(e) => setFormData({ ...formData, liveWebsiteUrl: e.target.value })}
-                  className="w-full px-4 py-2 border border-[--color-stone-300] rounded-lg focus:outline-none focus:ring-2 focus:ring-[--color-forest-600]"
-                  placeholder="https://example.com"
-                />
-                <p className="text-xs text-[--color-stone-500] mt-1">If provided, a "View Experience Live" button will appear on the project page</p>
-              </div>
               <div>
                 <label className="block text-sm mb-2 text-[--color-stone-700]">Card Metric Value</label>
                 <input
@@ -303,14 +240,13 @@ export function ProjectsManager() {
               </label>
               <div className="space-y-3">
                 <div className="flex gap-3 items-start mt-[0px] mr-[0px] mb-[24px] ml-[0px]">
-                  <label className={`flex items-center gap-2 px-4 py-2 bg-[#1B4D2E] text-white rounded-lg hover:bg-[#143622] transition-colors cursor-pointer ${uploadingImage ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                  <label className="flex items-center gap-2 px-4 py-2 bg-[#1B4D2E] text-white rounded-lg hover:bg-[#143622] transition-colors cursor-pointer">
                     <Upload size={18} />
-                    {uploadingImage ? 'Uploading...' : 'Upload to Supabase'}
+                    Upload Image
                     <input
                       type="file"
                       accept="image/*"
                       onChange={handleImageUpload}
-                      disabled={uploadingImage}
                       className="hidden"
                     />
                   </label>
@@ -350,7 +286,6 @@ export function ProjectsManager() {
             </h4>
             
             <RichTextEditor
-              key={`summary-${editingId || 'new'}`}
               label="Summary"
               value={formData.summary || ''}
               onChange={(value) => setFormData({ ...formData, summary: value })}
@@ -358,7 +293,6 @@ export function ProjectsManager() {
             />
 
             <RichTextEditor
-              key={`problem-${editingId || 'new'}`}
               label="Problem"
               value={formData.problem || ''}
               onChange={(value) => setFormData({ ...formData, problem: value })}
@@ -366,7 +300,6 @@ export function ProjectsManager() {
             />
 
             <RichTextEditor
-              key={`objective-${editingId || 'new'}`}
               label="Objective"
               value={formData.objective || ''}
               onChange={(value) => setFormData({ ...formData, objective: value })}
@@ -374,7 +307,6 @@ export function ProjectsManager() {
             />
 
             <RichTextEditor
-              key={`ourActions-${editingId || 'new'}`}
               label="Our Actions"
               value={formData.ourActions || ''}
               onChange={(value) => setFormData({ ...formData, ourActions: value })}
@@ -382,7 +314,6 @@ export function ProjectsManager() {
             />
 
             <RichTextEditor
-              key={`results-${editingId || 'new'}`}
               label="Results"
               value={formData.results || ''}
               onChange={(value) => setFormData({ ...formData, results: value })}

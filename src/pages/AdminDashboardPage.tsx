@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import { useAdmin } from '../contexts/AdminContext';
-import { LogOut, FolderOpen, MessageSquare, BarChart3, Users } from 'lucide-react';
+import { LogOut, FolderOpen, MessageSquare, BarChart3, Plus } from 'lucide-react';
 import { ProjectsManager } from '../components/admin/ProjectsManager';
 import { TestimonialsManager } from '../components/admin/TestimonialsManager';
 import { MetricsManager } from '../components/admin/MetricsManager';
-import { LeadsManager } from '../components/admin/LeadsManager';
 
-type TabType = 'projects' | 'testimonials' | 'metrics' | 'leads';
+type TabType = 'projects' | 'testimonials' | 'metrics';
 
 export function AdminDashboardPage() {
-  const { logout, projects, testimonials, metrics, leads } = useAdmin();
+  const { logout, projects, testimonials, metrics } = useAdmin();
   const [activeTab, setActiveTab] = useState<TabType>('projects');
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     if (confirm('Are you sure you want to logout?')) {
-      await logout();
+      logout();
       window.history.pushState({}, '', '/admin');
       window.location.reload();
     }
@@ -24,7 +23,6 @@ export function AdminDashboardPage() {
     { label: 'Total Projects', value: projects.length, icon: FolderOpen },
     { label: 'Testimonials', value: testimonials.length, icon: MessageSquare },
     { label: 'Metrics', value: metrics.length, icon: BarChart3 },
-    { label: 'Leads', value: leads.length, icon: Users },
   ];
 
   return (
@@ -106,16 +104,6 @@ export function AdminDashboardPage() {
               >
                 Metrics
               </button>
-              <button
-                onClick={() => setActiveTab('leads')}
-                className={`px-6 py-4 text-sm transition-colors ${
-                  activeTab === 'leads'
-                    ? 'bg-[--color-sage-50] text-[--color-forest-700] border-b-2 border-[--color-forest-700]'
-                    : 'text-[--color-stone-600] hover:bg-[--color-stone-50]'
-                }`}
-              >
-                Leads
-              </button>
             </div>
           </div>
 
@@ -123,7 +111,6 @@ export function AdminDashboardPage() {
             {activeTab === 'projects' && <ProjectsManager />}
             {activeTab === 'testimonials' && <TestimonialsManager />}
             {activeTab === 'metrics' && <MetricsManager />}
-            {activeTab === 'leads' && <LeadsManager />}
           </div>
         </div>
       </div>

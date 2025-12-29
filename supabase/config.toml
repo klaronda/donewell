@@ -1,0 +1,19 @@
+# Supabase Edge Functions Configuration
+# This file configures per-function settings for Edge Functions
+
+# Disable JWT verification for internal-only functions
+# These functions are only called from process-lead internally
+[functions.generate-insights]
+verify_jwt = false
+
+[functions.generate-email]
+verify_jwt = false
+
+[functions.send-audit-email]
+verify_jwt = false
+
+# Keep JWT verification enabled for public-facing functions
+# process-lead and run-pagespeed-audit remain protected
+
+
+

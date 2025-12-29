@@ -10,28 +10,17 @@ export function AdminLoginPage({ onLoginSuccess }: AdminLoginPageProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const { login } = useAdmin();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    setLoading(true);
+    const success = login(email, password);
     
-    try {
-      const success = await login(email, password);
-      
-      if (success) {
-        onLoginSuccess();
-      } else {
-        setError('Incorrect email or password');
-        setPassword('');
-      }
-    } catch (err) {
-      setError('Login failed. Please try again.');
-      console.error('Login error:', err);
-    } finally {
-      setLoading(false);
+    if (success) {
+      onLoginSuccess();
+    } else {
+      setError('Incorrect email or password');
+      setPassword('');
     }
   };
 
@@ -90,10 +79,9 @@ export function AdminLoginPage({ onLoginSuccess }: AdminLoginPageProps) {
 
           <button
             type="submit"
-            disabled={loading}
-            className="w-full px-6 py-3 bg-[#1B4D2E] text-white rounded-lg hover:bg-[#143622] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-6 py-3 bg-[#1B4D2E] text-white rounded-lg hover:bg-[#143622] transition-colors"
           >
-            {loading ? 'Logging in...' : 'Login'}
+            Login
           </button>
         </form>
       </div>

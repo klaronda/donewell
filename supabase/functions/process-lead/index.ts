@@ -73,26 +73,36 @@ serve(async (req) => {
 
     // Check if email is suppressed - skip entire process if suppressed
     if (lead.email) {
+      const normalizedEmail = lead.email.toLowerCase().trim()
       const { data: suppressed, error: suppressionError } = await supabase
         .from('email_suppression')
-        .select('id')
-        .eq('email', lead.email.toLowerCase().trim())
+        .select('id, reason, suppressed_at')
+        .eq('email', normalizedEmail)
         .limit(1)
         .single()
 
       if (!suppressionError && suppressed) {
-        console.log('⏭️ Skipping lead processing - email is suppressed:', lead.email)
+        // Update lead status to 'suppressed'
+        await supabase
+          .from('lead_sites')
+          .update({ status: 'suppressed' })
+          .eq('id', lead_id)
+
+        console.log(`🚫 Email not delivered - customer on suppression list: ${lead.email} (suppressed at: ${suppressed.suppressed_at}, reason: ${suppressed.reason || 'none'})`)
+        
         return new Response(
           JSON.stringify({ 
             success: false,
             lead_id: lead_id,
             error: 'Email is suppressed',
             message: 'This email address has been unsubscribed and will not receive emails',
+            suppressed_at: suppressed.suppressed_at,
+            suppression_reason: suppressed.reason,
             steps: {
-              audit: { success: false, skipped: true, reason: 'Email suppressed' },
-              insights: { success: false, skipped: true, reason: 'Email suppressed' },
-              email: { success: false, skipped: true, reason: 'Email suppressed' },
-              send: { success: false, skipped: true, reason: 'Email suppressed' },
+              audit: { success: false, skipped: true, reason: 'Email suppressed - customer on suppression list' },
+              insights: { success: false, skipped: true, reason: 'Email suppressed - customer on suppression list' },
+              email: { success: false, skipped: true, reason: 'Email suppressed - customer on suppression list' },
+              send: { success: false, skipped: true, reason: 'Email suppressed - customer on suppression list' },
             }
           }),
           {
