@@ -15,7 +15,7 @@ COMMENT ON COLUMN leads.website IS 'Optional website URL provided by the lead';
 
 -- First, create new table with desired column order
 CREATE TABLE leads_new (
-  id UUID PRIMARY KEY,
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
   business_name TEXT,
