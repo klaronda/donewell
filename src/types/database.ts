@@ -56,6 +56,7 @@ export interface DatabaseLead {
   business_name?: string | null;
   email: string;
   phone?: string | null;
+  website?: string | null;
   message: string;
   booked_consult: boolean;
   calendly_event_uri?: string | null;
@@ -231,6 +232,7 @@ export function leadToDatabase(lead: Omit<Lead, 'id'>): Omit<DatabaseLead, 'id' 
     business_name: lead.businessName ?? null,
     email: lead.email,
     phone: lead.phone ?? null,
+    website: lead.website ?? null,
     message: lead.message,
     booked_consult: lead.bookedConsult,
     calendly_event_uri: lead.calendlyEventUri ?? null,

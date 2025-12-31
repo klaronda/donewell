@@ -34,6 +34,7 @@ export function GetStartedModal({ isOpen, onClose }: GetStartedModalProps) {
     firstName: '',
     lastName: '',
     businessName: '',
+    website: '',
     email: '',
     phone: '',
     message: ''
@@ -56,6 +57,7 @@ export function GetStartedModal({ isOpen, onClose }: GetStartedModalProps) {
         firstName: formData.firstName,
         lastName: formData.lastName,
         businessName: formData.businessName || undefined,
+        website: formData.website || undefined,
         email: formData.email,
         phone: formData.phone || undefined,
         message: formData.message,
@@ -85,6 +87,7 @@ export function GetStartedModal({ isOpen, onClose }: GetStartedModalProps) {
       firstName: '',
       lastName: '',
       businessName: '',
+      website: '',
       email: '',
       phone: '',
       message: ''
@@ -217,6 +220,20 @@ export function GetStartedModal({ isOpen, onClose }: GetStartedModalProps) {
                   value={formData.businessName}
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-[--color-stone-300] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1B4D2E] focus:border-[#1B4D2E]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm mb-2 text-[--color-stone-700]">
+                  Website
+                </label>
+                <input
+                  type="url"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-[--color-stone-300] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1B4D2E] focus:border-[#1B4D2E]"
+                  placeholder="https://example.com"
                 />
               </div>
 

@@ -5,6 +5,7 @@ interface SendEmailParams {
   firstName: string;
   lastName: string;
   businessName?: string;
+  website?: string;
   message?: string;
   bookedConsult: boolean;
 }

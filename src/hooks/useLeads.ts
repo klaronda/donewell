@@ -3,6 +3,9 @@ import { supabase } from '../lib/supabase';
 import { DatabaseLead, Lead, transformLead, leadToDatabase } from '../types/database';
 import { sendEmail } from '../lib/email';
 
+// Store timeout IDs for delayed emails, keyed by lead ID
+const emailTimeouts = new Map<string, NodeJS.Timeout>();
+
 export function useLeads() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
@@ -51,21 +54,26 @@ export function useLeads() {
       setLeads((prev) => [newLead, ...prev]);
       
       // Send email for new lead (bookedConsult is false by default)
+      // Delay by 30 minutes to give user time to book before sending
       // This is fire-and-forget - don't wait for it or let it break the flow
       if (!newLead.bookedConsult) {
-        // Use setTimeout to ensure this runs after the function returns
-        setTimeout(() => {
+        // Store timeout ID so we can cancel it if booking happens
+        const timeoutId = setTimeout(() => {
           sendEmail({
             to: newLead.email,
             firstName: newLead.firstName,
             lastName: newLead.lastName,
             businessName: newLead.businessName || undefined,
+            website: newLead.website || undefined,
             message: newLead.message || undefined,
             bookedConsult: false,
           }).catch((error) => {
             console.warn('Failed to send email after lead creation (non-critical):', error);
           });
-        }, 0);
+          // Clean up timeout reference after it fires
+          emailTimeouts.delete(newLead.id);
+        }, 30 * 60 * 1000); // 30 minutes
+        emailTimeouts.set(newLead.id, timeoutId);
       }
       
       return newLead;
@@ -88,6 +96,7 @@ export function useLeads() {
       if (updates.businessName !== undefined) dbUpdates.business_name = updates.businessName ?? null;
       if (updates.email !== undefined) dbUpdates.email = updates.email;
       if (updates.phone !== undefined) dbUpdates.phone = updates.phone ?? null;
+      if (updates.website !== undefined) dbUpdates.website = updates.website ?? null;
       if (updates.message !== undefined) dbUpdates.message = updates.message;
       if (updates.bookedConsult !== undefined) dbUpdates.booked_consult = updates.bookedConsult;
       if (updates.calendlyEventUri !== undefined) dbUpdates.calendly_event_uri = updates.calendlyEventUri ?? null;
@@ -106,16 +115,23 @@ export function useLeads() {
         prev.map((l) => (l.id === id ? updatedLead : l))
       );
       
-      // Send email when booking is confirmed (bookedConsult changes from false to true)
-      // This is fire-and-forget - don't wait for it or let it break the flow
+      // If booking is confirmed, cancel any pending delayed email
       if (isBookingConfirmed) {
-        // Use setTimeout to ensure this runs after the function returns
+        const timeoutId = emailTimeouts.get(id);
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+          emailTimeouts.delete(id);
+        }
+        
+        // Send booking confirmation email immediately
+        // This is fire-and-forget - don't wait for it or let it break the flow
         setTimeout(() => {
           sendEmail({
             to: updatedLead.email,
             firstName: updatedLead.firstName,
             lastName: updatedLead.lastName,
             businessName: updatedLead.businessName || undefined,
+            website: updatedLead.website || undefined,
             message: updatedLead.message || undefined,
             bookedConsult: true,
           }).catch((error) => {

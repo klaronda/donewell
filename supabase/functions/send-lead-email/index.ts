@@ -8,12 +8,13 @@ interface LeadEmailData {
   firstName: string
   lastName: string
   businessName?: string
+  website?: string
   message?: string
   bookedConsult: boolean
 }
 
 function getEmailTemplate(data: LeadEmailData): { subject: string; html: string } {
-  const { firstName, lastName, businessName, message, bookedConsult } = data
+  const { firstName, lastName, businessName, website, message, bookedConsult } = data
   const businessText = businessName ? ` at ${businessName}` : ''
 
   if (bookedConsult) {
@@ -41,7 +42,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                     <!-- Header -->
                     <tr>
                         <td style="padding: 40px 40px 32px; text-align: center; background-color: #1B4D2E;">
-                            <div style="font-size: 28px; font-weight: 600; color: #ffffff; letter-spacing: -0.02em;">DoneWell</div>
+                            <img src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Assets/Logo.svg" alt="DoneWell" style="height: 32px; display: block; margin: 0 auto;">
                         </td>
                     </tr>
                     
@@ -65,6 +66,10 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                                 ${businessName ? `
                                 <p style="margin: 0 0 12px; font-size: 14px; color: #78716c; font-weight: 500;">Business</p>
                                 <p style="margin: 0 0 20px; font-size: 16px; color: #292524;">${businessName}</p>
+                                ` : ''}
+                                ${website ? `
+                                <p style="margin: 0 0 12px; font-size: 14px; color: #78716c; font-weight: 500;">Website</p>
+                                <p style="margin: 0 0 20px; font-size: 16px; color: #292524;"><a href="${website}" style="color: #1B4D2E; text-decoration: none;">${website}</a></p>
                                 ` : ''}
                                 ${message ? `
                                 <p style="margin: 0 0 12px; font-size: 14px; color: #78716c; font-weight: 500;">What you're looking to accomplish</p>
@@ -133,7 +138,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                             <table role="presentation" style="width: 100%; border-collapse: collapse;">
                                 <tr>
                                     <td style="padding-bottom: 24px;">
-                                        <div style="font-size: 20px; font-weight: 600; color: #ffffff; margin-bottom: 12px; opacity: 0.9;">DoneWell</div>
+                                        <div style="font-size: 20px; font-weight: 600; color: #ffffff; margin-bottom: 12px; opacity: 0.9;">DoneWell Design Co</div>
                                         <p style="margin: 0 0 8px; font-size: 14px; color: #ffffff; opacity: 0.9;">Professional websites designed, built, and launched with care.</p>
                                     </td>
                                 </tr>
@@ -149,7 +154,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                                                 </td>
                                                 <td style="width: 33.33%; vertical-align: top;">
                                                     <p style="margin: 0 0 8px; font-size: 12px; color: #ffffff; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Connect</p>
-                                                    <p style="margin: 0;"><a href="mailto:hello@donewellco.com" style="color: #ffffff; text-decoration: none; font-size: 14px; opacity: 0.9;">hello@donewellco.com</a></p>
+                                                    <p style="margin: 0;"><a href="mailto:contact@donewellco.com" style="color: #ffffff; text-decoration: none; font-size: 14px; opacity: 0.9;">contact@donewellco.com</a></p>
                                                 </td>
                                                 <td style="width: 33.33%; vertical-align: top;">
                                                 </td>
@@ -160,7 +165,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                                 <tr>
                                     <td style="padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
                                         <p style="margin: 0; font-size: 12px; color: #ffffff; opacity: 0.7;">
-                                            © ${new Date().getFullYear()} DoneWell. All rights reserved.
+                                            © ${new Date().getFullYear()} DoneWell Design Co. All rights reserved.
                                         </p>
                                     </td>
                                 </tr>
@@ -203,7 +208,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                     <!-- Header -->
                     <tr>
                         <td style="padding: 40px 40px 32px; text-align: center; background-color: #ffffff;">
-                            <div style="font-size: 28px; font-weight: 600; color: #1B4D2E; letter-spacing: -0.02em;">DoneWell</div>
+                            <img src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Assets/Logo.svg" alt="DoneWell" style="height: 32px; display: block; margin: 0 auto;">
                         </td>
                     </tr>
                     
@@ -234,6 +239,10 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                                 ${businessName ? `
                                 <p style="margin: 0 0 12px; font-size: 14px; color: #78716c; font-weight: 500;">Business</p>
                                 <p style="margin: 0 0 20px; font-size: 16px; color: #292524;">${businessName}</p>
+                                ` : ''}
+                                ${website ? `
+                                <p style="margin: 0 0 12px; font-size: 14px; color: #78716c; font-weight: 500;">Website</p>
+                                <p style="margin: 0 0 20px; font-size: 16px; color: #292524;"><a href="${website}" style="color: #1B4D2E; text-decoration: none;">${website}</a></p>
                                 ` : ''}
                                 
                                 ${message ? `
@@ -273,7 +282,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                                 </div>
                                 <p style="margin: 0 0 24px; font-size: 15px; color: #292524; line-height: 1.7;">"DoneWell took our scattered ideas and turned them into a website that actually works. They asked the right questions, kept us in the loop, and delivered exactly what we needed — no drama, no delays. It's rare to find a team that just gets it done well."</p>
                                 <div style="display: flex; align-items: center; gap: 16px;">
-                                    <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #1B4D2E 0%, #345a45 100%); overflow: hidden; flex-shrink: 0;"></div>
+                                    <img src="https://ci3.googleusercontent.com/meips/ADKq_NbMmG5HaRCqnQxqh39tohNkohFhyNCQkmGFswIESMYv9djUdbtKHr-MKOfhjC_JGu3ZleS4IhJNtH8xB526plhYpWIQXEUXMCyi__uzhDJimzCjrtT4t48OEILMSKGdBiflryJ3fHCYIwEkgV6RafklXOFVYpTrOu4=s0-d-e1-ft#https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Testimonials/kurt.jpg" alt="Kurt K." style="width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;">
                                     <div>
                                         <p style="margin: 0; font-size: 15px; font-weight: 600; color: #292524;">Sarah Mitchell</p>
                                         <p style="margin: 0; font-size: 14px; color: #57534e;">Founder, Bloom Wellness</p>
@@ -294,7 +303,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                                 </div>
                                 <p style="margin: 0 0 24px; font-size: 15px; color: #292524; line-height: 1.7;">"I've worked with several agencies before, and DoneWell was different from day one. They listened more than they talked, explained things in plain English, and delivered a platform that our clients love. It felt like having a technical partner who actually cared about the outcome."</p>
                                 <div style="display: flex; align-items: center; gap: 16px;">
-                                    <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #345a45 0%, #1B4D2E 100%); overflow: hidden; flex-shrink: 0;"></div>
+                                    <img src="https://ci3.googleusercontent.com/meips/ADKq_NbMmG5HaRCqnQxqh39tohNkohFhyNCQkmGFswIESMYv9djUdbtKHr-MKOfhjC_JGu3ZleS4IhJNtH8xB526plhYpWIQXEUXMCyi__uzhDJimzCjrtT4t48OEILMSKGdBiflryJ3fHCYIwEkgV6RafklXOFVYpTrOu4=s0-d-e1-ft#https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Testimonials/kurt.jpg" alt="Kurt K." style="width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;">
                                     <div>
                                         <p style="margin: 0; font-size: 15px; font-weight: 600; color: #292524;">Marcus Chen</p>
                                         <p style="margin: 0; font-size: 14px; color: #57534e;">Principal, Chen Consulting Group</p>
@@ -315,7 +324,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                                 </div>
                                 <p style="margin: 0 0 24px; font-size: 15px; color: #292524; line-height: 1.7;">"We needed a simple app for internal use, and every other developer wanted to overcomplicate it. DoneWell understood the scope, built exactly what we asked for, and made sure we could maintain it ourselves. Professional, straightforward, and completely reliable."</p>
                                 <div style="display: flex; align-items: center; gap: 16px;">
-                                    <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #1B4D2E 0%, #78716c 100%); overflow: hidden; flex-shrink: 0;"></div>
+                                    <img src="https://ci3.googleusercontent.com/meips/ADKq_NbMmG5HaRCqnQxqh39tohNkohFhyNCQkmGFswIESMYv9djUdbtKHr-MKOfhjC_JGu3ZleS4IhJNtH8xB526plhYpWIQXEUXMCyi__uzhDJimzCjrtT4t48OEILMSKGdBiflryJ3fHCYIwEkgV6RafklXOFVYpTrOu4=s0-d-e1-ft#https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Testimonials/kurt.jpg" alt="Kurt K." style="width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;">
                                     <div>
                                         <p style="margin: 0; font-size: 15px; font-weight: 600; color: #292524;">Jennifer Alvarez</p>
                                         <p style="margin: 0; font-size: 14px; color: #57534e;">Director of Operations, Ridgeline Partners</p>
@@ -332,7 +341,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                             <table role="presentation" style="width: 100%; border-collapse: collapse;">
                                 <tr>
                                     <td style="padding-bottom: 24px;">
-                                        <div style="font-size: 20px; font-weight: 600; color: #ffffff; margin-bottom: 12px; opacity: 0.9;">DoneWell</div>
+                                        <div style="font-size: 20px; font-weight: 600; color: #ffffff; margin-bottom: 12px; opacity: 0.9;">DoneWell Design Co</div>
                                         <p style="margin: 0 0 8px; font-size: 14px; color: #ffffff; opacity: 0.9;">Professional websites designed, built, and launched with care.</p>
                                     </td>
                                 </tr>
@@ -348,7 +357,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                                                 </td>
                                                 <td style="width: 33.33%; vertical-align: top;">
                                                     <p style="margin: 0 0 8px; font-size: 12px; color: #ffffff; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Connect</p>
-                                                    <p style="margin: 0;"><a href="mailto:hello@donewellco.com" style="color: #ffffff; text-decoration: none; font-size: 14px; opacity: 0.9;">hello@donewellco.com</a></p>
+                                                    <p style="margin: 0;"><a href="mailto:contact@donewellco.com" style="color: #ffffff; text-decoration: none; font-size: 14px; opacity: 0.9;">contact@donewellco.com</a></p>
                                                 </td>
                                                 <td style="width: 33.33%; vertical-align: top;">
                                                 </td>
@@ -359,7 +368,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                                 <tr>
                                     <td style="padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
                                         <p style="margin: 0; font-size: 12px; color: #ffffff; opacity: 0.7;">
-                                            © ${new Date().getFullYear()} DoneWell. All rights reserved.
+                                            © ${new Date().getFullYear()} DoneWell Design Co. All rights reserved.
                                         </p>
                                     </td>
                                 </tr>
