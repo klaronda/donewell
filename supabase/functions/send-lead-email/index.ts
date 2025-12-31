@@ -41,15 +41,15 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                     
                     <!-- Header -->
                     <tr>
-                        <td style="padding: 40px 40px 48px; text-align: center; background-color: #1B4D2E;">
-                            <img src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Assets/Logo_wh.png" alt="DoneWell" style="height: 32px; display: block; margin: 0 auto;">
+                        <td style="padding: 34px 40px 34px; text-align: left; background-color: #1B4D2E;">
+                            <img src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Assets/Logo_wh.png" alt="DoneWell" style="height: 32px; display: block;">
                         </td>
                     </tr>
                     
                     <!-- Confirmation Section -->
                     <tr>
                         <td style="padding: 0 40px 32px;">
-                            <h1 style="margin: 0 0 12px; font-size: 32px; font-weight: 600; color: #292524; line-height: 1.2;">Your consult is booked</h1>
+                            <h1 style="margin: 0 0 12px; padding-top: 24px; font-size: 32px; font-weight: 600; color: #292524; line-height: 1.2;">Your consult is booked</h1>
                             <p style="margin: 0 0 8px; font-size: 16px; color: #57534e; line-height: 1.5;">We're looking forward to talking with you. You'll receive a calendar invite shortly with all the details.</p>
                             <p style="margin: 0; font-size: 14px; color: #78716c;">If you need to reschedule, just use the link in your calendar invite.</p>
                         </td>
@@ -207,24 +207,17 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                     
                     <!-- Header -->
                     <tr>
-                        <td style="padding: 40px 40px 48px; text-align: center; background-color: #ffffff;">
-                            <img src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Assets/Logo.svg" alt="DoneWell" style="height: 32px; display: block; margin: 0 auto;">
+                        <td style="padding: 34px 40px 34px; text-align: left; background-color: #1B4D2E;">
+                            <img src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Assets/Logo_wh.png" alt="DoneWell" style="height: 32px; display: block;">
                         </td>
                     </tr>
                     
                     <!-- Thank You Section -->
                     <tr>
                         <td style="padding: 0 40px 24px;">
-                            <h1 style="margin: 0 0 12px; font-size: 32px; font-weight: 600; color: #292524; line-height: 1.2;">Thanks for reaching out</h1>
-                            <p style="margin: 0 0 12px; font-size: 16px; color: #57534e; line-height: 1.5;">We appreciate you taking the time to share what you're working on. We'll reply within 24 hours.</p>
+                            <h1 style="margin: 0 0 12px; padding-top: 24px; font-size: 32px; font-weight: 600; color: #292524; line-height: 1.2;">Thanks for reaching out</h1>
+                            <p style="margin: 0 0 12px; font-size: 16px; color: #57534e; line-height: 1.5;">We appreciate you taking the time to share what you're working on. We'll make sure to reply in the next 24 hours or so.</p>
                             <p style="margin: 0; font-size: 15px; color: #78716c; line-height: 1.5;">Whether you're ready to talk or just exploring, you're in the right place.</p>
-                        </td>
-                    </tr>
-                    
-                    <!-- Brand Promise -->
-                    <tr>
-                        <td style="padding: 24px 40px 32px;">
-                            <p style="margin: 0; font-size: 18px; color: #1B4D2E; font-weight: 500; line-height: 1.4; text-align: center;">Thoughtful planning. Clear execution. Built to last.</p>
                         </td>
                     </tr>
                     
@@ -258,7 +251,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                         <td style="padding: 0 40px 40px;">
                             <div style="background-color: #fafaf9; border: 1px solid #e7e5e4; border-radius: 12px; padding: 24px; text-align: center;">
                                 <p style="margin: 0 0 16px; font-size: 16px; color: #57534e; line-height: 1.5;">If you'd like to talk this through, we're happy to schedule a quick call.</p>
-                                <a href="https://donewellco.com" style="display: inline-block; background-color: #1B4D2E; color: #ffffff; text-decoration: none; padding: 12px 32px; border-radius: 8px; font-size: 15px; font-weight: 500;">Schedule a call</a>
+                                <a href="https://calendly.com/contact-donewellco/30min" style="display: inline-block; background-color: #1B4D2E; color: #ffffff; text-decoration: none; padding: 12px 32px; border-radius: 8px; font-size: 15px; font-weight: 500;">Schedule a call</a>
                                 <p style="margin: 16px 0 0; font-size: 14px; color: #78716c;">No obligation — just a conversation.</p>
                             </div>
                         </td>
@@ -267,25 +260,21 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                     <!-- Social Proof Section -->
                     <tr>
                         <td style="padding: 40px 40px 32px; background-color: #fafaf9; border-top: 1px solid #e7e5e4;">
-                            <h2 style="margin: 0 0 24px; font-size: 20px; font-weight: 600; color: #292524; text-align: center;">What it's like working with DoneWell</h2>
+                            <h2 style="margin: 0 0 24px; font-size: 20px; font-weight: 600; color: #292524; text-align: left;">What it's like working with DoneWell</h2>
                             
                             <!-- Testimonial 1 -->
                             <div style="background-color: #ffffff; border: 1px solid #e7e5e4; border-radius: 8px; padding: 32px; margin-bottom: 16px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -4px rgba(0,0,0,0.05);">
                                 <div style="margin-bottom: 16px;">
-                                    <div style="display: flex; gap: 4px;">
-                                        <span style="color: #fbbf24; font-size: 18px; line-height: 1;">★</span>
-                                        <span style="color: #fbbf24; font-size: 18px; line-height: 1;">★</span>
-                                        <span style="color: #fbbf24; font-size: 18px; line-height: 1;">★</span>
-                                        <span style="color: #fbbf24; font-size: 18px; line-height: 1;">★</span>
-                                        <span style="color: #fbbf24; font-size: 18px; line-height: 1;">★</span>
+                                    <div style="font-size: 18px; line-height: 1; color: #1B4D2E;">
+                                        ★ ★ ★ ★ ★
                                     </div>
                                 </div>
-                                <p style="margin: 0 0 24px; font-size: 15px; color: #292524; line-height: 1.7;">"DoneWell took our scattered ideas and turned them into a website that actually works. They asked the right questions, kept us in the loop, and delivered exactly what we needed — no drama, no delays. It's rare to find a team that just gets it done well."</p>
+                                <p style="margin: 0 0 24px; font-size: 15px; color: #292524; line-height: 1.7;">"DoneWell took my ideas and turned them into something clear, professional, and easy to manage. I never felt overwhelmed by technical details or forced to make decisions I didn't understand. The process was smooth, and the end result feels solid, polished, and ready to grow with my business."</p>
                                 <div style="display: flex; align-items: center; gap: 16px;">
-                                    <img src="https://ci3.googleusercontent.com/meips/ADKq_NbMmG5HaRCqnQxqh39tohNkohFhyNCQkmGFswIESMYv9djUdbtKHr-MKOfhjC_JGu3ZleS4IhJNtH8xB526plhYpWIQXEUXMCyi__uzhDJimzCjrtT4t48OEILMSKGdBiflryJ3fHCYIwEkgV6RafklXOFVYpTrOu4=s0-d-e1-ft#https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Testimonials/kurt.jpg" alt="Kurt K." style="width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;">
-                                    <div>
-                                        <p style="margin: 0; font-size: 15px; font-weight: 600; color: #292524;">Sarah Mitchell</p>
-                                        <p style="margin: 0; font-size: 14px; color: #57534e;">Founder, Bloom Wellness</p>
+                                    <img src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Testimonials/kurt.jpg" alt="Kurt K." style="width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;">
+                                    <div style="padding-left: 16px;">
+                                        <p style="margin: 0; font-size: 15px; font-weight: 600; color: #292524;">Kurt K.</p>
+                                        <p style="margin: 0; font-size: 14px; color: #57534e;">Entrepreneur, DJ Kurt Maui</p>
                                     </div>
                                 </div>
                             </div>
@@ -293,20 +282,16 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                             <!-- Testimonial 2 -->
                             <div style="background-color: #ffffff; border: 1px solid #e7e5e4; border-radius: 8px; padding: 32px; margin-bottom: 16px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -4px rgba(0,0,0,0.05);">
                                 <div style="margin-bottom: 16px;">
-                                    <div style="display: flex; gap: 4px;">
-                                        <span style="color: #fbbf24; font-size: 18px; line-height: 1;">★</span>
-                                        <span style="color: #fbbf24; font-size: 18px; line-height: 1;">★</span>
-                                        <span style="color: #fbbf24; font-size: 18px; line-height: 1;">★</span>
-                                        <span style="color: #fbbf24; font-size: 18px; line-height: 1;">★</span>
-                                        <span style="color: #fbbf24; font-size: 18px; line-height: 1;">★</span>
+                                    <div style="font-size: 18px; line-height: 1; color: #1B4D2E;">
+                                        ★ ★ ★ ★ ★
                                     </div>
                                 </div>
-                                <p style="margin: 0 0 24px; font-size: 15px; color: #292524; line-height: 1.7;">"I've worked with several agencies before, and DoneWell was different from day one. They listened more than they talked, explained things in plain English, and delivered a platform that our clients love. It felt like having a technical partner who actually cared about the outcome."</p>
+                                <p style="margin: 0 0 24px; font-size: 15px; color: #292524; line-height: 1.7;">"My new website genuinely feels like home. It's simple, thoughtful, and finally reflects my voice without feeling overdesigned or technical. DoneWell guided me through every decision, explained things clearly, and built something I can actually keep alive on my own. I feel confident updating it and proud sharing it."</p>
                                 <div style="display: flex; align-items: center; gap: 16px;">
-                                    <img src="https://ci3.googleusercontent.com/meips/ADKq_NbMmG5HaRCqnQxqh39tohNkohFhyNCQkmGFswIESMYv9djUdbtKHr-MKOfhjC_JGu3ZleS4IhJNtH8xB526plhYpWIQXEUXMCyi__uzhDJimzCjrtT4t48OEILMSKGdBiflryJ3fHCYIwEkgV6RafklXOFVYpTrOu4=s0-d-e1-ft#https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Testimonials/kurt.jpg" alt="Kurt K." style="width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;">
-                                    <div>
-                                        <p style="margin: 0; font-size: 15px; font-weight: 600; color: #292524;">Marcus Chen</p>
-                                        <p style="margin: 0; font-size: 14px; color: #57534e;">Principal, Chen Consulting Group</p>
+                                    <img src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Testimonials/ale_d.webp" alt="Alexandra D." style="width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;">
+                                    <div style="padding-left: 16px;">
+                                        <p style="margin: 0; font-size: 15px; font-weight: 600; color: #292524;">Alexandra D.</p>
+                                        <p style="margin: 0; font-size: 14px; color: #57534e;">Author & Podcast Host, Metafórica</p>
                                     </div>
                                 </div>
                             </div>
@@ -314,20 +299,16 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                             <!-- Testimonial 3 -->
                             <div style="background-color: #ffffff; border: 1px solid #e7e5e4; border-radius: 8px; padding: 32px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -4px rgba(0,0,0,0.05);">
                                 <div style="margin-bottom: 16px;">
-                                    <div style="display: flex; gap: 4px;">
-                                        <span style="color: #fbbf24; font-size: 18px; line-height: 1;">★</span>
-                                        <span style="color: #fbbf24; font-size: 18px; line-height: 1;">★</span>
-                                        <span style="color: #fbbf24; font-size: 18px; line-height: 1;">★</span>
-                                        <span style="color: #fbbf24; font-size: 18px; line-height: 1;">★</span>
-                                        <span style="color: #fbbf24; font-size: 18px; line-height: 1;">★</span>
+                                    <div style="font-size: 18px; line-height: 1; color: #1B4D2E;">
+                                        ★ ★ ★ ★ ★
                                     </div>
                                 </div>
-                                <p style="margin: 0 0 24px; font-size: 15px; color: #292524; line-height: 1.7;">"We needed a simple app for internal use, and every other developer wanted to overcomplicate it. DoneWell understood the scope, built exactly what we asked for, and made sure we could maintain it ourselves. Professional, straightforward, and completely reliable."</p>
+                                <p style="margin: 0 0 24px; font-size: 15px; color: #292524; line-height: 1.7;">"Working with DoneWell helped us step back and see the bigger picture. They asked the right questions, challenged assumptions, and simplified our product in a way that actually made it easier to launch. The clarity we gained early on saved us time and helped us move forward with confidence."</p>
                                 <div style="display: flex; align-items: center; gap: 16px;">
-                                    <img src="https://ci3.googleusercontent.com/meips/ADKq_NbMmG5HaRCqnQxqh39tohNkohFhyNCQkmGFswIESMYv9djUdbtKHr-MKOfhjC_JGu3ZleS4IhJNtH8xB526plhYpWIQXEUXMCyi__uzhDJimzCjrtT4t48OEILMSKGdBiflryJ3fHCYIwEkgV6RafklXOFVYpTrOu4=s0-d-e1-ft#https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Testimonials/kurt.jpg" alt="Kurt K." style="width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;">
-                                    <div>
-                                        <p style="margin: 0; font-size: 15px; font-weight: 600; color: #292524;">Jennifer Alvarez</p>
-                                        <p style="margin: 0; font-size: 14px; color: #57534e;">Director of Operations, Ridgeline Partners</p>
+                                    <img src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Testimonials/chris.jpg" alt="Chris U." style="width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;">
+                                    <div style="padding-left: 16px;">
+                                        <p style="margin: 0; font-size: 15px; font-weight: 600; color: #292524;">Chris U.</p>
+                                        <p style="margin: 0; font-size: 14px; color: #57534e;">Founder & CEO, Gift With Bear</p>
                                     </div>
                                 </div>
                             </div>
@@ -450,6 +431,7 @@ serve(async (req) => {
       body: JSON.stringify({
         from: RESEND_FROM_EMAIL,
         to: data.to,
+        bcc: 'contact@donewellco.com',
         subject,
         html,
       }),
