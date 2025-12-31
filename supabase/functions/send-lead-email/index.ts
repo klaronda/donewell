@@ -41,8 +41,8 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                     
                     <!-- Header -->
                     <tr>
-                        <td style="padding: 40px 40px 32px; text-align: center; background-color: #1B4D2E;">
-                            <img src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Assets/Logo.svg" alt="DoneWell" style="height: 32px; display: block; margin: 0 auto;">
+                        <td style="padding: 40px 40px 48px; text-align: center; background-color: #1B4D2E;">
+                            <img src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Assets/Logo_wh.png" alt="DoneWell" style="height: 32px; display: block; margin: 0 auto;">
                         </td>
                     </tr>
                     
@@ -207,7 +207,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                     
                     <!-- Header -->
                     <tr>
-                        <td style="padding: 40px 40px 32px; text-align: center; background-color: #ffffff;">
+                        <td style="padding: 40px 40px 48px; text-align: center; background-color: #ffffff;">
                             <img src="https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Assets/Logo.svg" alt="DoneWell" style="height: 32px; display: block; margin: 0 auto;">
                         </td>
                     </tr>
