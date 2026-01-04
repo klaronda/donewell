@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useAdmin } from '../contexts/AdminContext';
-import { LogOut, FolderOpen, MessageSquare, BarChart3, Users } from 'lucide-react';
+import { LogOut, FolderOpen, MessageSquare, BarChart3, Users, Globe } from 'lucide-react';
 import { ProjectsManager } from '../components/admin/ProjectsManager';
 import { TestimonialsManager } from '../components/admin/TestimonialsManager';
 import { MetricsManager } from '../components/admin/MetricsManager';
 import { LeadsManager } from '../components/admin/LeadsManager';
+import { ClientSubscriptionsManager } from '../components/admin/ClientSubscriptionsManager';
 
-type TabType = 'projects' | 'testimonials' | 'metrics' | 'leads';
+type TabType = 'projects' | 'testimonials' | 'metrics' | 'leads' | 'subscriptions';
 
 export function AdminDashboardPage() {
   const { logout, projects, testimonials, metrics, leads } = useAdmin();
@@ -116,6 +117,17 @@ export function AdminDashboardPage() {
               >
                 Leads
               </button>
+              <button
+                onClick={() => setActiveTab('subscriptions')}
+                className={`px-6 py-4 text-sm transition-colors flex items-center gap-2 ${
+                  activeTab === 'subscriptions'
+                    ? 'bg-[--color-sage-50] text-[--color-forest-700] border-b-2 border-[--color-forest-700]'
+                    : 'text-[--color-stone-600] hover:bg-[--color-stone-50]'
+                }`}
+              >
+                <Globe size={16} />
+                Client Subscriptions
+              </button>
             </div>
           </div>
 
@@ -124,6 +136,7 @@ export function AdminDashboardPage() {
             {activeTab === 'testimonials' && <TestimonialsManager />}
             {activeTab === 'metrics' && <MetricsManager />}
             {activeTab === 'leads' && <LeadsManager />}
+            {activeTab === 'subscriptions' && <ClientSubscriptionsManager />}
           </div>
         </div>
       </div>

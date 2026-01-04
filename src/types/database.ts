@@ -239,5 +239,267 @@ export function leadToDatabase(lead: Omit<Lead, 'id'>): Omit<DatabaseLead, 'id' 
   };
 }
 
+// =============================================================================
+// MONITORING TYPES (DoneWell Essentials)
+// =============================================================================
+
+export type SubscriptionTier = 'none' | 'essentials' | 'care';
+export type SiteStatus = 'active' | 'paused' | 'archived';
+export type HealthCheckType = 'uptime' | 'health_api' | 'cms' | 'form' | 'seo' | 'ssl';
+export type CheckResult = 'ok' | 'warn' | 'fail';
+export type SeverityLevel = 'sev-1' | 'sev-2' | 'sev-3';
+export type IncidentStatus = 'open' | 'monitoring' | 'resolved';
+
+// Database types (snake_case)
+export interface DatabaseMonitoredSite {
+  id: string;
+  site_id: string;
+  site_name: string;
+  primary_domain: string;
+  environment: string;
+  client_id?: string | null;
+  subscription_tier: SubscriptionTier;
+  status: SiteStatus;
+  site_secret?: string | null;
+  client_email?: string | null;
+  internal_email: string;
+  last_deploy_at?: string | null;
+  deploy_suppression_minutes: number;
+  trial_start_date?: string | null;
+  trial_end_date?: string | null;
+  cms_table?: string | null;
+  forms_table?: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface DatabaseHealthCheck {
+  id: string;
+  site_id: string;
+  check_type: HealthCheckType;
+  target: string;
+  enabled: boolean;
+  interval_minutes: number;
+  created_at: string;
+}
+
+export interface DatabaseHealthEvent {
+  id: string;
+  check_id: string;
+  result: CheckResult;
+  http_status?: number | null;
+  latency_ms?: number | null;
+  error_message?: string | null;
+  raw_payload?: Record<string, unknown> | null;
+  checked_at: string;
+}
+
+export interface DatabaseIncident {
+  id: string;
+  site_id: string;
+  severity: SeverityLevel;
+  status: IncidentStatus;
+  title: string;
+  description?: string | null;
+  triggered_by_check_id?: string | null;
+  triggered_by_event_id?: string | null;
+  created_at: string;
+  resolved_at?: string | null;
+  auto_resolved: boolean;
+}
+
+export interface DatabaseErrorLog {
+  id: string;
+  site_id: string;
+  error_type: string;
+  message: string;
+  stack?: string | null;
+  url?: string | null;
+  user_agent?: string | null;
+  additional_context?: Record<string, unknown> | null;
+  received_at: string;
+}
+
+// App types (camelCase)
+export interface MonitoredSite {
+  id: string;
+  siteId: string;
+  siteName: string;
+  primaryDomain: string;
+  environment: string;
+  clientId?: string;
+  subscriptionTier: SubscriptionTier;
+  status: SiteStatus;
+  siteSecret?: string;
+  clientEmail?: string;
+  internalEmail: string;
+  lastDeployAt?: string;
+  deploySuppressionMinutes: number;
+  trialStartDate?: string;
+  trialEndDate?: string;
+  cmsTable?: string;
+  formsTable?: string;
+  createdAt: string;
+  updatedAt: string;
+  // Computed fields (from joins)
+  lastCheckResult?: CheckResult;
+}
+
+export interface HealthCheck {
+  id: string;
+  siteId: string;
+  checkType: HealthCheckType;
+  target: string;
+  enabled: boolean;
+  intervalMinutes: number;
+  createdAt: string;
+}
+
+export interface HealthEvent {
+  id: string;
+  checkId: string;
+  result: CheckResult;
+  httpStatus?: number;
+  latencyMs?: number;
+  errorMessage?: string;
+  rawPayload?: Record<string, unknown>;
+  checkedAt: string;
+  // Joined fields
+  checkType?: HealthCheckType;
+  target?: string;
+}
+
+export interface Incident {
+  id: string;
+  siteId: string;
+  severity: SeverityLevel;
+  status: IncidentStatus;
+  title: string;
+  description?: string;
+  triggeredByCheckId?: string;
+  triggeredByEventId?: string;
+  createdAt: string;
+  resolvedAt?: string;
+  autoResolved: boolean;
+}
+
+export interface ErrorLog {
+  id: string;
+  siteId: string;
+  errorType: string;
+  message: string;
+  stack?: string;
+  url?: string;
+  userAgent?: string;
+  additionalContext?: Record<string, unknown>;
+  receivedAt: string;
+}
+
+// Transform functions
+export function transformMonitoredSite(db: DatabaseMonitoredSite): MonitoredSite {
+  return {
+    id: db.id,
+    siteId: db.site_id,
+    siteName: db.site_name,
+    primaryDomain: db.primary_domain,
+    environment: db.environment,
+    clientId: db.client_id ?? undefined,
+    subscriptionTier: db.subscription_tier,
+    status: db.status,
+    siteSecret: db.site_secret ?? undefined,
+    clientEmail: db.client_email ?? undefined,
+    internalEmail: db.internal_email,
+    lastDeployAt: db.last_deploy_at ?? undefined,
+    deploySuppressionMinutes: db.deploy_suppression_minutes,
+    trialStartDate: db.trial_start_date ?? undefined,
+    trialEndDate: db.trial_end_date ?? undefined,
+    cmsTable: db.cms_table ?? undefined,
+    formsTable: db.forms_table ?? undefined,
+    createdAt: db.created_at,
+    updatedAt: db.updated_at,
+  };
+}
+
+export function transformHealthCheck(db: DatabaseHealthCheck): HealthCheck {
+  return {
+    id: db.id,
+    siteId: db.site_id,
+    checkType: db.check_type,
+    target: db.target,
+    enabled: db.enabled,
+    intervalMinutes: db.interval_minutes,
+    createdAt: db.created_at,
+  };
+}
+
+export function transformHealthEvent(db: DatabaseHealthEvent & { check_type?: HealthCheckType; target?: string }): HealthEvent {
+  return {
+    id: db.id,
+    checkId: db.check_id,
+    result: db.result,
+    httpStatus: db.http_status ?? undefined,
+    latencyMs: db.latency_ms ?? undefined,
+    errorMessage: db.error_message ?? undefined,
+    rawPayload: db.raw_payload ?? undefined,
+    checkedAt: db.checked_at,
+    checkType: db.check_type,
+    target: db.target,
+  };
+}
+
+export function transformIncident(db: DatabaseIncident): Incident {
+  return {
+    id: db.id,
+    siteId: db.site_id,
+    severity: db.severity,
+    status: db.status,
+    title: db.title,
+    description: db.description ?? undefined,
+    triggeredByCheckId: db.triggered_by_check_id ?? undefined,
+    triggeredByEventId: db.triggered_by_event_id ?? undefined,
+    createdAt: db.created_at,
+    resolvedAt: db.resolved_at ?? undefined,
+    autoResolved: db.auto_resolved,
+  };
+}
+
+export function transformErrorLog(db: DatabaseErrorLog): ErrorLog {
+  return {
+    id: db.id,
+    siteId: db.site_id,
+    errorType: db.error_type,
+    message: db.message,
+    stack: db.stack ?? undefined,
+    url: db.url ?? undefined,
+    userAgent: db.user_agent ?? undefined,
+    additionalContext: db.additional_context ?? undefined,
+    receivedAt: db.received_at,
+  };
+}
+
+// Site to database transform
+export function monitoredSiteToDatabase(
+  site: Omit<MonitoredSite, 'id' | 'createdAt' | 'updatedAt' | 'lastCheckResult'>
+): Omit<DatabaseMonitoredSite, 'id' | 'created_at' | 'updated_at'> {
+  return {
+    site_id: site.siteId,
+    site_name: site.siteName,
+    primary_domain: site.primaryDomain,
+    environment: site.environment,
+    client_id: site.clientId ?? null,
+    subscription_tier: site.subscriptionTier,
+    status: site.status,
+    site_secret: site.siteSecret ?? null,
+    client_email: site.clientEmail ?? null,
+    internal_email: site.internalEmail,
+    last_deploy_at: site.lastDeployAt ?? null,
+    deploy_suppression_minutes: site.deploySuppressionMinutes,
+    trial_start_date: site.trialStartDate ?? null,
+    trial_end_date: site.trialEndDate ?? null,
+    cms_table: site.cmsTable ?? null,
+    forms_table: site.formsTable ?? null,
+  };
+}
+
 
 
