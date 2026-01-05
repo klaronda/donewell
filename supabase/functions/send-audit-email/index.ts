@@ -164,6 +164,12 @@ serve(async (req) => {
         bcc: 'contact@donewellco.com',
         subject: emailDraft.subject,
         html: emailBody, // HTML email with formatting
+        // Add tags for tracking - these will be included in webhook events
+        tags: [
+          { name: 'lead_id', value: emailDraft.lead_id },
+          { name: 'email_draft_id', value: email_draft_id },
+          { name: 'campaign', value: 'audit-outreach' }
+        ]
       }),
     })
 
@@ -185,12 +191,13 @@ serve(async (req) => {
     const result = await emailResponse.json()
     console.log('✅ Email sent successfully:', result.id)
 
-    // Update email draft status to 'sent' and record sent_at timestamp
+    // Update email draft status to 'sent', record sent_at timestamp, and store Resend message ID
     const { error: updateError } = await supabase
       .from('email_drafts')
       .update({
         status: 'sent',
-        sent_at: new Date().toISOString()
+        sent_at: new Date().toISOString(),
+        resend_message_id: result.id // Store Resend's message ID for tracking
       })
       .eq('id', email_draft_id)
 
