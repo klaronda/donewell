@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /how-we-work
+Disallow: /services-agreement
+
+Sitemap: https://donewellco.com/sitemap.xml

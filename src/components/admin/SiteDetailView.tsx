@@ -472,9 +472,9 @@ function ErrorLogsTab({
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="px-1.5 py-0.5 bg-red-100 text-red-700 rounded text-xs font-mono">
-                    {error.errorType}
+                    {error.level}
                   </span>
-                  <span className="text-xs text-[--color-stone-500]">{formatDate(error.receivedAt)}</span>
+                  <span className="text-xs text-[--color-stone-500]">{formatDate(error.createdAt)}</span>
                 </div>
                 <p className="text-sm text-[--color-forest-700] truncate mt-1">{error.message}</p>
               </div>
@@ -483,12 +483,6 @@ function ErrorLogsTab({
             {isExpanded && (
               <div className="px-3 pb-3 pt-0">
                 <div className="bg-[--color-stone-100] rounded p-3 space-y-2 text-xs">
-                  {error.url && (
-                    <div>
-                      <span className="text-[--color-stone-500]">URL:</span>{' '}
-                      <span className="font-mono">{error.url}</span>
-                    </div>
-                  )}
                   {error.stack && (
                     <div>
                       <span className="text-[--color-stone-500]">Stack trace:</span>
@@ -497,10 +491,12 @@ function ErrorLogsTab({
                       </pre>
                     </div>
                   )}
-                  {error.userAgent && (
+                  {error.context && (
                     <div>
-                      <span className="text-[--color-stone-500]">User Agent:</span>{' '}
-                      <span className="font-mono">{error.userAgent}</span>
+                      <span className="text-[--color-stone-500]">Context:</span>
+                      <pre className="mt-1 font-mono text-[--color-stone-700] whitespace-pre-wrap overflow-x-auto">
+                        {JSON.stringify(error.context, null, 2)}
+                      </pre>
                     </div>
                   )}
                 </div>

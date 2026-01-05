@@ -21,10 +21,6 @@ import {
   CheckResult,
 } from '../types/database';
 
-interface SiteWithLastCheck extends DatabaseMonitoredSite {
-  last_check_result?: CheckResult;
-}
-
 export function useClientSubscriptions(autoRefreshInterval = 30000) {
   const [sites, setSites] = useState<MonitoredSite[]>([]);
   const [loading, setLoading] = useState(true);
@@ -59,13 +55,14 @@ export function useClientSubscriptions(autoRefreshInterval = 30000) {
               const checkIds = checksData.map(c => c.id);
               
               // Step 2: Get the most recent health event for these checks
+              // Use .maybeSingle() instead of .single() to handle 0 rows gracefully
               const { data: eventData } = await supabase
                 .from('health_events')
                 .select('result')
                 .in('check_id', checkIds)
                 .order('created_at', { ascending: false })
                 .limit(1)
-                .single();
+                .maybeSingle();
 
               if (eventData) {
                 transformed.lastCheckResult = eventData.result as CheckResult;
