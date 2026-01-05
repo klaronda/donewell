@@ -137,6 +137,19 @@ export function ClientSubscriptionsManager() {
   // Deleting state
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
+  // Refresh state
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [refreshSuccess, setRefreshSuccess] = useState(false);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    setRefreshSuccess(false);
+    await refetch();
+    setIsRefreshing(false);
+    setRefreshSuccess(true);
+    setTimeout(() => setRefreshSuccess(false), 2000);
+  };
+
   const filteredSites = sites.filter((site) => {
     if (filterTier !== 'all' && site.subscriptionTier !== filterTier) return false;
     if (filterStatus !== 'all' && site.status !== filterStatus) return false;
@@ -678,11 +691,25 @@ DONEWELL_LOG_SECRET=${wizardData.siteSecret}`;
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={() => refetch()}
-            className="flex items-center gap-2 px-4 py-2 text-[--color-stone-600] hover:bg-[--color-stone-100] rounded-lg transition-colors"
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+              refreshSuccess 
+                ? 'bg-green-100 text-green-700' 
+                : isRefreshing 
+                  ? 'bg-[--color-stone-100] text-[--color-stone-400] cursor-wait'
+                  : 'text-[--color-stone-600] hover:bg-[--color-stone-100] active:scale-95'
+            }`}
             title="Refresh (auto-refreshes every 30s)"
           >
-            <RefreshCw size={16} />
+            {refreshSuccess ? (
+              <>
+                <CheckCircle2 size={16} />
+                <span className="text-sm">Updated</span>
+              </>
+            ) : (
+              <RefreshCw size={16} className={isRefreshing ? 'animate-spin' : ''} />
+            )}
           </button>
           <button
             onClick={startWizard}

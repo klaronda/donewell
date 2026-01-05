@@ -372,7 +372,7 @@ function HealthEventsTab({ events }: { events: HealthEvent[] }) {
         <tbody>
           {events.map((event) => (
             <tr key={event.id} className="border-b border-[--color-stone-100] hover:bg-[--color-stone-50]">
-              <td className="py-2 px-2 text-[--color-stone-600]">{formatDate(event.checkedAt)}</td>
+              <td className="py-2 px-2 text-[--color-stone-600]">{formatDate(event.createdAt)}</td>
               <td className="py-2 px-2">
                 <span className="font-mono text-xs bg-[--color-stone-100] px-1.5 py-0.5 rounded">
                   {event.checkType || '—'}

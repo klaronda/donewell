@@ -43,32 +43,37 @@ export function useClientSubscriptions(autoRefreshInterval = 30000) {
 
       if (sitesError) throw sitesError;
 
-      // For each site, get the latest health event result
+      // For each site, get the latest health event result using a two-step approach
       const sitesWithStatus = await Promise.all(
         (sitesData as DatabaseMonitoredSite[]).map(async (site) => {
-          // Get health check IDs for this site first
-          const { data: checksData } = await supabase
-            .from('health_checks')
-            .select('id')
-            .eq('site_id', site.id)
-            .limit(10);
-
           const transformed = transformMonitoredSite(site);
           
-          if (checksData && checksData.length > 0) {
-            const checkIds = checksData.map((c) => c.id);
-            // Get the most recent health event for any of this site's checks
-            const { data: eventData } = await supabase
-              .from('health_events')
-              .select('result')
-              .in('check_id', checkIds)
-              .order('checked_at', { ascending: false })
-              .limit(1)
-              .maybeSingle();
+          try {
+            // Step 1: Get health check IDs for this site
+            const { data: checksData } = await supabase
+              .from('health_checks')
+              .select('id')
+              .eq('site_id', site.id);
 
-            if (eventData) {
-              transformed.lastCheckResult = (eventData as { result: CheckResult }).result;
+            if (checksData && checksData.length > 0) {
+              const checkIds = checksData.map(c => c.id);
+              
+              // Step 2: Get the most recent health event for these checks
+              const { data: eventData } = await supabase
+                .from('health_events')
+                .select('result')
+                .in('check_id', checkIds)
+                .order('created_at', { ascending: false })
+                .limit(1)
+                .single();
+
+              if (eventData) {
+                transformed.lastCheckResult = eventData.result as CheckResult;
+              }
             }
+          } catch (err) {
+            // Silently fail for individual site status - don't block the whole list
+            console.warn(`Could not fetch status for site ${site.site_name}:`, err);
           }
           
           return transformed;
@@ -285,7 +290,7 @@ export function useSiteDetails(siteUuid: string | null, autoRefreshInterval = 30
           .from('health_events')
           .select('*, health_checks(check_type, target)')
           .in('check_id', checkIds)
-          .order('checked_at', { ascending: false })
+          .order('created_at', { ascending: false })
           .limit(50);
 
         if (eventsError) throw eventsError;
@@ -317,7 +322,7 @@ export function useSiteDetails(siteUuid: string | null, autoRefreshInterval = 30
         .from('error_logs')
         .select('*')
         .eq('site_id', siteUuid)
-        .order('received_at', { ascending: false })
+        .order('created_at', { ascending: false })
         .limit(50);
 
       if (errorsError) throw errorsError;
