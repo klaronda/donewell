@@ -51,10 +51,11 @@ EXCEPTION
   WHEN OTHERS THEN NULL;
 END $$;
 
--- Schedule health polling every 5 minutes
+-- Schedule health polling every 30 minutes (Essentials tier)
+-- Care tier could use more frequent polling (e.g., */5 for 5 minutes)
 SELECT cron.schedule(
   'poll-health-checks',
-  '*/5 * * * *',
+  '*/30 * * * *',
   'SELECT call_poll_health_checks();'
 );
 
