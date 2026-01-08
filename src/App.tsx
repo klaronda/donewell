@@ -4,6 +4,7 @@ import { WorkPage } from './pages/WorkPage';
 import { AboutPage } from './pages/AboutPage';
 import { HowWeWorkPage } from './pages/HowWeWorkPage';
 import { ServicesAgreementPage } from './pages/ServicesAgreementPage';
+import { CapabilitiesPage } from './pages/CapabilitiesPage';
 import { ProjectDetailPage } from './pages/ProjectDetailPage';
 import { AdminLoginPage } from './pages/AdminLoginPage';
 import { AdminDashboardPage } from './pages/AdminDashboardPage';
@@ -12,7 +13,7 @@ import { AdminProvider, useAdmin } from './contexts/AdminContext';
 
 function AppContent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState<'home' | 'work' | 'about' | 'how-we-work' | 'services-agreement' | 'project' | 'admin' | 'unsubscribe'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'work' | 'about' | 'how-we-work' | 'services-agreement' | 'capabilities' | 'project' | 'admin' | 'unsubscribe'>('home');
   const [currentProjectSlug, setCurrentProjectSlug] = useState('');
   const { isAuthenticated } = useAdmin();
 
@@ -30,6 +31,8 @@ function AppContent() {
       setCurrentPage('how-we-work');
     } else if (path === '/services-agreement') {
       setCurrentPage('services-agreement');
+    } else if (path === '/capabilities') {
+      setCurrentPage('capabilities');
     } else if (path === '/admin') {
       setCurrentPage('admin');
     } else if (path === '/unsubscribe') {
@@ -53,6 +56,8 @@ function AppContent() {
         setCurrentPage('how-we-work');
       } else if (newPath === '/services-agreement') {
         setCurrentPage('services-agreement');
+      } else if (newPath === '/capabilities') {
+        setCurrentPage('capabilities');
       } else if (newPath === '/admin') {
         setCurrentPage('admin');
       } else if (newPath === '/unsubscribe') {
@@ -93,6 +98,9 @@ function AppContent() {
           } else if (path === '/services-agreement') {
             setCurrentPage('services-agreement');
             window.history.pushState({}, '', '/services-agreement');
+          } else if (path === '/capabilities') {
+            setCurrentPage('capabilities');
+            window.history.pushState({}, '', '/capabilities');
           } else if (path === '/admin') {
             setCurrentPage('admin');
             window.history.pushState({}, '', '/admin');
@@ -177,6 +185,16 @@ function AppContent() {
   if (currentPage === 'services-agreement') {
     return (
       <ServicesAgreementPage 
+        onGetStartedClick={handleGetStartedClick}
+        isModalOpen={isModalOpen}
+        onModalClose={handleModalClose}
+      />
+    );
+  }
+
+  if (currentPage === 'capabilities') {
+    return (
+      <CapabilitiesPage 
         onGetStartedClick={handleGetStartedClick}
         isModalOpen={isModalOpen}
         onModalClose={handleModalClose}

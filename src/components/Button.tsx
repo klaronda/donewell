@@ -18,8 +18,8 @@ export function Button({
   const baseStyles = "inline-flex items-center justify-center transition-all duration-200 cursor-pointer";
   
   const variantStyles = {
-    primary: "bg-[#1a4d2e] text-white hover:bg-[#153d25] shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-lg)] border-0",
-    secondary: "bg-white text-[#1a4d2e] border border-[#1a4d2e] hover:bg-[#4a6f5a] hover:text-white"
+    primary: "bg-[#1a4d2e] text-white hover:text-white hover:bg-[#153d25] shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-lg)] border-0 font-semibold",
+    secondary: "bg-white text-[#1a4d2e] border border-[#1a4d2e] hover:bg-[#4a6f5a] hover:text-white font-semibold"
   };
   
   const sizeStyles = {
@@ -31,7 +31,7 @@ export function Button({
   
   if (href) {
     return (
-      <a href={href} className={className}>
+      <a href={href} className={className} style={{ textDecoration: 'none' }}>
         {children}
       </a>
     );

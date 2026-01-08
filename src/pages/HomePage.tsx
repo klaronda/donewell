@@ -20,6 +20,7 @@ import {
   Users
 } from 'lucide-react';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { IntegrationsSection } from '../components/IntegrationsSection';
 import { useAdmin } from '../contexts/AdminContext';
 
 interface HomePageProps {
@@ -140,10 +141,10 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
       </section>
       
       {/* THE DONEWELL PROCESS */}
-      <section className="py-24 bg-white" id="process">
+      <section className="py-24 bg-[--color-sage-50]" id="process">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <div className="inline-block px-4 py-2 bg-gray-100 rounded-full text-sm tracking-wider text-[--color-forest-700] mb-4">
+            <div className="inline-block px-4 py-2 bg-gray-100 rounded-full text-sm tracking-wider text-[--color-forest-700] mb-4 border border-[--color-stone-200]">
               OUR PROVEN PROCESS
             </div>
             <h2 className="mb-6">From Idea to Launch in 4 Simple Steps</h2>
@@ -182,6 +183,9 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
           </div>
         </div>
       </section>
+      
+      {/* INTEGRATIONS SECTION */}
+      <IntegrationsSection exploreHref="/capabilities" />
       
       {/* TESTIMONIALS SECTION */}
       <section className="py-24 bg-[--color-sand-50]">
