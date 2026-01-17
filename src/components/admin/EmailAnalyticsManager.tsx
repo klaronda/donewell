@@ -3,7 +3,6 @@ import { useEmailAnalytics, SubjectStats } from '../../hooks/useEmailAnalytics';
 import { 
   Mail, 
   Send, 
-  Eye, 
   MousePointerClick, 
   AlertTriangle, 
   XCircle,
@@ -113,7 +112,7 @@ export function EmailAnalyticsManager() {
       </div>
 
       {/* Overall Stats Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-white border border-[--color-stone-200] rounded-lg p-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-[--color-sage-100] rounded-lg flex items-center justify-center">
@@ -122,18 +121,6 @@ export function EmailAnalyticsManager() {
             <div>
               <p className="text-xs text-[--color-stone-500] uppercase tracking-wide">Sent</p>
               <p className="text-2xl font-bold text-[--color-forest-700]">{stats.total}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white border border-[--color-stone-200] rounded-lg p-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-              <Eye className="text-blue-700" size={20} />
-            </div>
-            <div>
-              <p className="text-xs text-[--color-stone-500] uppercase tracking-wide">Open Rate</p>
-              <p className="text-2xl font-bold text-blue-700">{formatPercentage(stats.openRate)}</p>
             </div>
           </div>
         </div>
@@ -197,9 +184,6 @@ export function EmailAnalyticsManager() {
                     Sent
                   </th>
                   <th className="px-4 py-3 text-center text-xs font-medium text-[--color-stone-700] uppercase tracking-wider">
-                    Open Rate
-                  </th>
-                  <th className="px-4 py-3 text-center text-xs font-medium text-[--color-stone-700] uppercase tracking-wider">
                     Click Rate
                   </th>
                   <th className="px-4 py-3 text-center text-xs font-medium text-[--color-stone-700] uppercase tracking-wider">
@@ -236,9 +220,6 @@ export function EmailAnalyticsManager() {
                         </span>
                       </td>
                       <td className="px-4 py-4 text-center">
-                        <RateCell rate={subjectStats.openRate} count={subjectStats.openCount} total={subjectStats.deliveredCount} color="blue" />
-                      </td>
-                      <td className="px-4 py-4 text-center">
                         <RateCell rate={subjectStats.clickRate} count={subjectStats.clickCount} total={subjectStats.deliveredCount} color="green" />
                       </td>
                       <td className="px-4 py-4 text-center">
@@ -252,7 +233,7 @@ export function EmailAnalyticsManager() {
                     {/* Expanded Details */}
                     {expandedSubject === subjectStats.subject && (
                       <tr>
-                        <td colSpan={6} className="px-6 py-4 bg-[--color-stone-50]">
+                        <td colSpan={5} className="px-6 py-4 bg-[--color-stone-50]">
                           <div className="space-y-2">
                             <p className="text-xs font-medium text-[--color-stone-600] uppercase tracking-wide mb-3">
                               Individual Emails ({subjectStats.emails.length})
@@ -276,11 +257,6 @@ export function EmailAnalyticsManager() {
                                       {formatDate(email.sent_at)}
                                     </span>
                                     <div className="flex items-center gap-2">
-                                      {email.open_count > 0 && (
-                                        <span className="inline-flex items-center gap-1 text-xs text-blue-700 bg-blue-50 px-2 py-1 rounded">
-                                          <Eye size={12} /> {email.open_count}
-                                        </span>
-                                      )}
                                       {email.click_count > 0 && (
                                         <span className="inline-flex items-center gap-1 text-xs text-green-700 bg-green-50 px-2 py-1 rounded">
                                           <MousePointerClick size={12} /> {email.click_count}
@@ -296,7 +272,7 @@ export function EmailAnalyticsManager() {
                                           <AlertTriangle size={12} /> Complaint
                                         </span>
                                       )}
-                                      {email.open_count === 0 && email.click_count === 0 && email.bounce_count === 0 && email.complaint_count === 0 && email.delivered_count > 0 && (
+                                      {email.click_count === 0 && email.bounce_count === 0 && email.complaint_count === 0 && email.delivered_count > 0 && (
                                         <span className="text-xs text-[--color-stone-500]">Delivered</span>
                                       )}
                                       {email.delivered_count === 0 && email.bounce_count === 0 && (

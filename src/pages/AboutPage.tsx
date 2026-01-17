@@ -16,7 +16,7 @@ export function AboutPage({ onGetStartedClick, isModalOpen, onModalClose }: Abou
     <div className="min-h-screen">
       <SEO 
         title="About DoneWell - Helping People Bring Their Ideas to Life"
-        description="DoneWell exists to help people bring their ideas to life — thoughtfully, professionally, and without unnecessary complexity. We believe good digital work starts with understanding."
+        description="DoneWell exists to help people bring their ideas to life – thoughtfully, professionally, and without unnecessary complexity. We believe good digital work starts with understanding."
         url="https://donewellco.com/about"
       />
       <Header onGetStartedClick={onGetStartedClick} />
@@ -30,7 +30,7 @@ export function AboutPage({ onGetStartedClick, isModalOpen, onModalClose }: Abou
             </div>
             <h1 className="mb-6 pt-[0px] pr-[0px] pb-[24px] pl-[0px] !text-white">About DoneWell</h1>
             <p className="text-xl max-w-3xl mx-auto leading-relaxed !text-white">
-              DoneWell exists to help people bring their ideas to life — thoughtfully, professionally, 
+              DoneWell exists to help people bring their ideas to life – thoughtfully, professionally, 
               and without unnecessary complexity.
             </p>
           </div>
@@ -52,7 +52,7 @@ export function AboutPage({ onGetStartedClick, isModalOpen, onModalClose }: Abou
 
             <h2 className="text-[--color-forest-700] mb-4 pt-[0px] pr-[0px] pb-[16px] pl-[0px]">Our Approach</h2>
             <p className="text-lg text-[--color-stone-700] leading-relaxed mb-6">
-              We believe good digital work starts with understanding — not templates.
+              We believe good digital work starts with understanding – not templates.
             </p>
             <p className="text-lg text-[--color-stone-700] leading-relaxed mb-8">
               Every project begins with a conversation. We take the time to understand your business, 
@@ -133,7 +133,7 @@ export function AboutPage({ onGetStartedClick, isModalOpen, onModalClose }: Abou
             </p>
             <p className="text-lg text-[--color-stone-700] leading-relaxed mb-6">
               That includes consultants, lawyers, therapists, real estate professionals, creators, 
-              and founders — especially those starting something new or upgrading an existing website 
+              and founders – especially those starting something new or upgrading an existing website 
               that no longer reflects the quality of their work.
             </p>
             <p className="text-lg text-[--color-stone-700] leading-relaxed mb-[48px] mt-[0px] mr-[0px] ml-[0px]">
@@ -149,7 +149,7 @@ export function AboutPage({ onGetStartedClick, isModalOpen, onModalClose }: Abou
               Behind the scenes, our work draws from years of experience designing and shipping real 
               products, improving complex systems, and helping teams and businesses turn ideas into 
               working solutions. We combine design thinking, technical execution, and practical business 
-              sense — so projects don't just look good, they work.
+              sense – so projects don't just look good, they work.
             </p>
             <p className="text-lg text-[--color-stone-700] leading-relaxed mb-24">
               We use modern tools and processes to move efficiently, but we never lose sight of the 
@@ -162,7 +162,7 @@ export function AboutPage({ onGetStartedClick, isModalOpen, onModalClose }: Abou
             </p>
             <p className="text-lg text-[--color-stone-700] leading-relaxed mb-6">
               We believe quality comes from care, not shortcuts. From listening closely, making good 
-              decisions early, and following through. When something is done well, it earns trust — 
+              decisions early, and following through. When something is done well, it earns trust – 
               and trust is the foundation of any successful partnership.
             </p>
           </div>
@@ -177,7 +177,7 @@ export function AboutPage({ onGetStartedClick, isModalOpen, onModalClose }: Abou
             If you have an idea you'd like to explore, or a website that needs improvement, we'd love to talk.
           </p>
           <p className="text-lg text-stone-600 mb-8 pt-[0px] pr-[0px] pb-[24px] pl-[0px]">
-            You don't need a perfect plan — just a place to start.
+            You don't need a perfect plan – just a place to start.
           </p>
           <button 
             onClick={onGetStartedClick}

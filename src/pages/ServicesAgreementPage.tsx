@@ -300,7 +300,7 @@ export function ServicesAgreementPage({ onGetStartedClick, isModalOpen, onModalC
 
             {/* Exhibit A */}
             <div className="mb-16 pt-8 border-t border-[--color-stone-300]">
-              <h2 className="text-[--color-forest-700] mb-4 pt-[24px] pr-[0px] pb-[16px] pl-[0px]">Exhibit A — Legal Terms Addendum</h2>
+              <h2 className="text-[--color-forest-700] mb-4 pt-[24px] pr-[0px] pb-[16px] pl-[0px]">Exhibit A – Legal Terms Addendum</h2>
               <p className="text-lg text-[--color-stone-700] leading-relaxed mb-6">
                 This Legal Terms Addendum ("Addendum") forms part of the DoneWell Services Agreement.
               </p>
@@ -348,7 +348,7 @@ export function ServicesAgreementPage({ onGetStartedClick, isModalOpen, onModalC
             <div className="mb-24 pt-8 border-t border-[--color-stone-300] text-center">
               <p className="text-lg text-[--color-forest-700] font-semibold mb-2">DoneWell</p>
               <p className="text-base text-[--color-stone-600] italic">
-                Design. Build. Launch — done well.
+                Design. Build. Launch – done well.
               </p>
             </div>
 

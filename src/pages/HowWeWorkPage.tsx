@@ -15,7 +15,7 @@ export function HowWeWorkPage({ onGetStartedClick, isModalOpen, onModalClose }: 
     <div className="min-h-screen">
       <SEO 
         title="How We Work - DoneWell Process"
-        description="We keep our process clear, structured, and human — so you always know what's happening, what decisions matter, and when things are locked."
+        description="We keep our process clear, structured, and human – so you always know what's happening, what decisions matter, and when things are locked."
         url="https://donewellco.com/how-we-work"
         noindex={true}
       />
@@ -30,7 +30,7 @@ export function HowWeWorkPage({ onGetStartedClick, isModalOpen, onModalClose }: 
             </div>
             <h1 className="mb-6 pt-[0px] pr-[0px] pb-[24px] pl-[0px] !text-white">How We Work</h1>
             <p className="text-xl max-w-3xl mx-auto leading-relaxed !text-white">
-              We keep our process clear, structured, and human — so you always know what's happening, what decisions matter, and when things are locked.
+              We keep our process clear, structured, and human – so you always know what's happening, what decisions matter, and when things are locked.
             </p>
             <p className="text-lg max-w-3xl mx-auto leading-relaxed !text-white mt-4 opacity-90">
               This page explains how projects move from idea to launch, including how discovery, planning, and build phases work.
@@ -88,7 +88,7 @@ export function HowWeWorkPage({ onGetStartedClick, isModalOpen, onModalClose }: 
               </div>
               <div className="ml-14">
                 <p className="text-lg text-[--color-stone-700] leading-relaxed mb-6">
-                  Discovery is where clarity happens — and where pricing and scope become real.
+                  Discovery is where clarity happens – and where pricing and scope become real.
                 </p>
                 <h3 className="text-[--color-forest-700] mb-4 text-xl font-semibold">How Discovery Works</h3>
                 <p className="text-lg text-[--color-stone-700] leading-relaxed mb-4">
@@ -272,7 +272,7 @@ export function HowWeWorkPage({ onGetStartedClick, isModalOpen, onModalClose }: 
 
             {/* After Launch */}
             <div className="mb-16">
-              <h2 className="text-[--color-forest-700] mb-4 pt-[24px] pr-[0px] pb-[16px] pl-[0px]">After Launch — Ongoing Support (Optional)</h2>
+              <h2 className="text-[--color-forest-700] mb-4 pt-[24px] pr-[0px] pb-[16px] pl-[0px]">After Launch – Ongoing Support (Optional)</h2>
               <p className="text-lg text-[--color-stone-700] leading-relaxed mb-2">
                 Some clients want continued monitoring, updates, and care.
               </p>
@@ -335,7 +335,7 @@ export function HowWeWorkPage({ onGetStartedClick, isModalOpen, onModalClose }: 
                 <li>There are no surprises at launch</li>
               </ul>
               <p className="text-lg text-[--color-stone-700] leading-relaxed mb-6">
-                If you have questions at any point, just ask — clarity is part of the service.
+                If you have questions at any point, just ask – clarity is part of the service.
               </p>
             </div>
 

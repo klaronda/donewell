@@ -10,3 +10,5 @@ COMMENT ON FUNCTION auto_process_lead() IS 'Automatically calls process-lead Edg
 COMMENT ON TRIGGER trigger_auto_process_lead ON lead_sites IS 'Triggers process-lead workflow when new lead is inserted with status=new. Leads are added to queue and processed during business hours (9am-5pm EST) with rate limiting (5 per day) and random delays (20-45 min between sends).';
 
 
+
+

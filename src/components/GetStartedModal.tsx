@@ -359,7 +359,7 @@ export function GetStartedModal({ isOpen, onClose }: GetStartedModalProps) {
               <CheckCircle2 size={40} className="text-[--color-forest-600]" />
             </div>
             
-            <h3 className="mb-4">Thanks — We'll Reach Out Shortly!</h3>
+            <h3 className="mb-4">Thanks – We'll Reach Out Shortly!</h3>
             {bookedConsult ? (
               <p className="text-xl text-[--color-stone-600] mb-8 max-w-md mx-auto">
                 We've received your information and we'll see you at your scheduled time!

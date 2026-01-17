@@ -12,7 +12,7 @@ interface SEOProps {
 
 export function SEO({
   title = 'DoneWell – Web and App Builds, DoneWell',
-  description = 'We turn your vision into professional websites and apps that your customers will love — without the tech headaches. Average 14-day delivery.',
+  description = 'We turn your vision into professional websites and apps that your customers will love – without the tech headaches. Average 14-day delivery.',
   image = 'https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Homepage/OG.png',
   url = 'https://donewellco.com',
   type = 'website',

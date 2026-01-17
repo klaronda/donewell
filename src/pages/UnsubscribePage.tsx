@@ -90,7 +90,7 @@ export function UnsubscribePage() {
                 You've been removed from our outreach list, and you won't receive further emails like this from us.
               </p>
               <p className="mb-4">
-                We only reach out when we've taken time to review a site and think the note could be useful. That said, your inbox is yours — and we respect that.
+                We only reach out when we've taken time to review a site and think the note could be useful. That said, your inbox is yours – and we respect that.
               </p>
               <p className="mb-8">
                 If you ever want a second set of eyes on a website or a new idea you're working on, that's what we do.
@@ -105,7 +105,7 @@ export function UnsubscribePage() {
 
             <div className="mt-12 pt-8 border-t border-[--color-stone-100]">
               <p className="text-sm text-[--color-stone-500] text-center">
-                Helping businesses design, build, and launch clear, fast websites — without complexity.
+                Helping businesses design, build, and launch clear, fast websites – without complexity.
               </p>
             </div>
           </div>

@@ -421,3 +421,5 @@ COMMENT ON TABLE deploy_events IS 'Deploy webhooks received from sites';
 COMMENT ON TABLE error_logs IS 'Error logs pushed from sites';
 COMMENT ON TABLE monthly_reports IS 'Generated monthly reports per site';
 
+
+

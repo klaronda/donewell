@@ -71,7 +71,7 @@ $$ LANGUAGE plpgsql;
 -- Function to calculate next send time with random 20-45 minute delay
 -- Uses the latest scheduled_send_at from queue OR last email sent time, whichever is later
 -- This ensures sequential scheduling when multiple leads are queued at once
--- Enforces daily limit of 5 emails per day
+-- Enforces daily limit of 10 emails per day
 CREATE OR REPLACE FUNCTION get_next_send_time()
 RETURNS TIMESTAMP WITH TIME ZONE AS $$
 DECLARE
@@ -97,7 +97,7 @@ DECLARE
   retry_count INTEGER;
   today_count INTEGER;
   target_date_count INTEGER;
-  max_per_day INTEGER := 5;
+  max_per_day INTEGER := 10;
 BEGIN
   -- Use advisory lock to serialize concurrent calls and prevent race conditions
   -- This ensures each call sees the previous insert before calculating the next time
@@ -467,7 +467,7 @@ CREATE OR REPLACE FUNCTION can_process_lead()
 RETURNS BOOLEAN AS $$
 DECLARE
   today_count INTEGER;
-  max_per_day INTEGER := 5;
+  max_per_day INTEGER := 10;
 BEGIN
   -- Check business hours
   IF NOT is_business_hours() THEN

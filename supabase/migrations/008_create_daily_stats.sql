@@ -48,3 +48,5 @@ COMMENT ON COLUMN daily_processing_stats.emails_sent_count IS 'Number of emails 
 COMMENT ON COLUMN daily_processing_stats.last_email_sent_at IS 'Timestamp of the last email sent on this date';
 
 
+
+

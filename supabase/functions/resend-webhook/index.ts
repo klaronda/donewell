@@ -18,9 +18,10 @@ interface ResendWebhookEvent {
   type: ResendEventType
   created_at: string
   data: {
-    email_id: string
+    id?: string  // Resend uses 'id' as the message ID
+    email_id?: string  // Some webhooks may use 'email_id'
     from: string
-    to: string[]
+    to: string | string[]  // Can be string or array
     subject: string
     created_at: string
     tags?: Record<string, string>
@@ -61,7 +62,19 @@ serve(async (req) => {
     // Parse the webhook payload
     const event: ResendWebhookEvent = await req.json()
 
-    console.log('📨 Received Resend webhook:', event.type, 'for email:', event.data.email_id)
+    // Resend uses 'id' as the message ID (or 'email_id' in some cases)
+    // Handle both formats for compatibility
+    const messageId = event.data.id || event.data.email_id
+
+    if (!messageId) {
+      console.error('❌ Webhook missing message ID:', JSON.stringify(event))
+      return new Response(
+        JSON.stringify({ error: 'Missing message ID in webhook payload' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      )
+    }
+
+    console.log('📨 Received Resend webhook:', event.type, 'for email:', messageId)
 
     // Initialize Supabase client
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
@@ -73,11 +86,11 @@ serve(async (req) => {
 
     // If we don't have the email_draft_id from tags, try to find it by resend_message_id
     let resolvedEmailDraftId = emailDraftId
-    if (!resolvedEmailDraftId && event.data.email_id) {
+    if (!resolvedEmailDraftId && messageId) {
       const { data: emailDraft } = await supabase
         .from('email_drafts')
         .select('id')
-        .eq('resend_message_id', event.data.email_id)
+        .eq('resend_message_id', messageId)
         .single()
       
       if (emailDraft) {
@@ -89,7 +102,7 @@ serve(async (req) => {
     const { data: insertedEvent, error: insertError } = await supabase
       .from('email_events')
       .insert({
-        resend_message_id: event.data.email_id,
+        resend_message_id: messageId,
         email_draft_id: resolvedEmailDraftId,
         lead_id: leadId,
         event_type: event.type,
@@ -118,7 +131,13 @@ serve(async (req) => {
 
     // Handle bounces and complaints - add to suppression list
     if (event.type === 'email.bounced' || event.type === 'email.complained') {
-      const recipientEmail = event.data.to?.[0]?.toLowerCase().trim()
+      // Handle 'to' field as either string or array
+      const toField = event.data.to
+      const recipientEmail = typeof toField === 'string' 
+        ? toField.toLowerCase().trim()
+        : Array.isArray(toField) 
+          ? toField[0]?.toLowerCase().trim()
+          : null
       
       if (recipientEmail) {
         const reason = event.type === 'email.bounced' 

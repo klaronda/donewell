@@ -55,7 +55,7 @@ export function IntegrationsSection({
               INTEGRATIONS
             </div>
             <h2 className="text-4xl md:text-5xl font-semibold text-[--color-forest-700] mb-6 leading-tight">
-              Built to fit your business — not a template.
+              Built to fit your business – not a template.
             </h2>
             <p className="text-xl text-[--color-stone-700] leading-relaxed">
               We design and build custom systems that connect the tools you already use, 
@@ -125,7 +125,7 @@ export function IntegrationsSection({
           {/* Supporting text */}
           <div className="text-center mt-8">
             <p className="text-base text-[--color-stone-600]">
-              And many more — if you use it, we can connect it.
+              And many more – if you use it, we can connect it.
             </p>
           </div>
         </div>

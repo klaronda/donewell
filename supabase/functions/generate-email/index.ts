@@ -134,26 +134,26 @@ serve(async (req) => {
     if (allScoresHigh) {
       // Generate high-score email template
       const unsubscribeUrl = `https://donewellco.com/unsubscribe?email=${encodeURIComponent(lead.email)}`
-      const highScoreSubject = `Reviewed your site — strong mobile results`
+      const highScoreSubject = `Your website is built very well`
       const highScoreBody = `<p>Hi ${firstName},</p>
 
-<p>I took a few minutes to review ${lead.company_name}'s homepage using Google's PageSpeed Insights tool, which measures real-world performance for <b>mobile users on 4G connections</b>.</p>
+<p>I took a few minutes to look under the hood of ${lead.company_name}'s homepage with Google's developer tools, mimicking a typical phone user.</p>
 
-<p>Your scores are strong:<br>- <b>Performance:</b> ${audit.performance_score}<br>- <b>Best Practices:</b> ${audit.best_practices_score}<br>- <b>SEO:</b> ${audit.seo_score}</p>
+<p>Your scores were very nice:<br>- <b>Performance:</b> ${audit.performance_score}<br>- <b>Best Practices:</b> ${audit.best_practices_score}<br>- <b>SEO:</b> ${audit.seo_score}</p>
 
-<p>That tells me your homepage is making a solid first impression — content shows up quickly, works well on phones, and is easy for search engines to understand. From a technical standpoint, there's nothing urgent to fix.</p>
+<p>In Laymen's terms: content shows up quickly, works well on phones, and is easy for search engines to understand. From a technical standpoint, there's nothing urgent to fix.</p>
 
-<p>At <b>DoneWell Design Co</b>, improving and stabilizing existing sites is part of what we do, but we're often brought in when teams want to <b>launch something new quickly</b> — a landing page, a new idea, or a side project that's been sitting on the back burner.</p>
+<p>Improving and stabilizing sites is part of we do, but we mostly specialize in getting new ideas off the ground (and quickly): like landing pages, iOS and Android apps, or side projects that have been been sitting on the back burner.</p>
 
-<p>For context, a few benchmarks from our recent work:<br>- Average design, build, and launch time: <b>under 14 days</b><br>- Average performance score: <b>99 / 100</b><br>- Average best practices score: <b>98 / 100</b><br>- Average SEO score: <b>96 / 100</b><br>- Client satisfaction: <b>97.5%</b></p>
+<p>Here are our project averages:<br>- <b>Idea-to-launch time:</b> 14 days<br>- <b>Performance:</b> 99.1<br>- <b>Best Practices:</b> 98.3<br>- <b>SEO:</b> 96.7<br>- <b>Client satisfaction:</b> 97.25%</p>
 
-<p>If there's something you've been meaning to put in front of customers without a long build cycle, we'd be happy to help.</p>
+<p>If there's something you've been wanting to get going, we'd be happy to help.</p>
 
-<p>Happy to chat,<br><b>Kevin L.</b><br><a href="https://donewellco.com">DoneWell Design Co</a></p>
+<p>Let's chat,<br><b>Kevin L.</b><br><a href="https://donewellco.com">DoneWell Design Co</a></p>
 
 <p>—</p>
 
-<p>If you'd rather not receive messages like this, you can opt out <a href="${unsubscribeUrl}">here</a>.</p>`
+<p style="color: #AAAAAA;">If you'd rather not receive messages like this, I won't take it personal. You can opt out <a href="${unsubscribeUrl}">here</a>.</p>`
 
       // Store email draft in database
       const { data: emailDraft, error: draftError } = await supabase
@@ -234,26 +234,22 @@ serve(async (req) => {
       if (audit.best_practices_score != null) scoreLines.push(`- <b>Best Practices:</b> ${audit.best_practices_score}`)
       const scoresDisplay = scoreLines.join('<br>')
       
-      const simplifiedSubject = `A quick note after reviewing your homepage`
+      const simplifiedSubject = `I reviewed your website, and here were the results`
       const simplifiedBody = `<p>Hi ${firstName},</p>
 
-<p>I took a few minutes to review ${lead.company_name}'s homepage using Google's PageSpeed Insights tool. It measures how sites perform for <b>mobile visitors on a typical 4G connection</b>, which is how most people experience the web today.</p>
+<p>I took a peek under the hood of ${lead.company_name}'s homepage using Google's developer tools, which measure performance for the average person using their phone.</p>
 
 <p>Here's what came back:<br>${scoresDisplay}</p>
 
-<p>A ${lowestScore.label} score in this range usually means the homepage takes a bit longer than expected to feel ready on mobile. Since the homepage is often a customer's <i>first impression</i>, that delay can cause people to lose interest before they understand what you offer.</p>
+<p>A ${lowestScore.label} score in this range usually means the homepage takes too long to load or simple-fix errors in the code. Since the homepage is often your customer's first impression, that delay can cause people to bounce before they understand what you offer.</p>
 
-<p>The good news is this isn't a redesign problem. Sites in this range are usually slowed down by a small number of things — large images, too much loading up front, or content that appears later than expected on mobile.</p>
+<p>The good news is: these are easy fixes and I'm happy to walk you through them in 15 minutes or less.</p>
 
-<p>When we help with this at <b>DoneWell Design Co</b>, we focus on removing that early friction so the site feels fast and trustworthy from the first moment.</p>
-
-<p>If it's useful, I'm happy to share what stood out most and what we'd prioritize first.</p>
-
-<p>Happy to chat,<br><b>Kevin L.</b><br><a href="https://donewellco.com">DoneWell Design Co</a></p>
+<p>Let's chat,<br><b>Kevin L.</b><br><a href="https://donewellco.com">DoneWell Design Co</a></p>
 
 <p>—</p>
 
-<p>If this isn't relevant or you'd prefer not to receive notes like this, you can ask to be removed <a href="${unsubscribeUrl}">here</a>.</p>`
+<p style="color: #AAAAAA;">If you'd prefer not to receive notes like this, you can ask to be removed <a href="${unsubscribeUrl}">here</a>.</p>`
 
       // Store email draft in database
       const { data: emailDraft, error: draftError } = await supabase
@@ -345,28 +341,24 @@ Recipient details:
 
 Email Structure (REQUIRED - Follow This Template, But Adapt Based on Scores):
 
-Subject Line: "A quick note after reviewing your homepage"
+Subject Line: "I reviewed your website, and here were the results"
 
 Body Structure (HTML Format):
 <p>Hi ${firstName},</p>
 
-<p>I took a few minutes to review ${lead.company_name}'s homepage using Google's PageSpeed Insights tool. It measures how sites perform for <b>mobile visitors on a typical 4G connection</b>, which is how most people experience the web today.</p>
+<p>I took a peek under the hood of ${lead.company_name}'s homepage using Google's developer tools, which measure performance for the average person using their phone.</p>
 
 <p>Here's what came back:<br>- <b>Performance:</b> ${audit.performance_score}<br>- <b>SEO:</b> ${audit.seo_score}<br>- <b>Accessibility:</b> ${audit.accessibility_score}</p>
 
 <p>[ADAPT THIS PARAGRAPH BASED ON LOWEST SCORE - see instructions below]</p>
 
-<p>The good news is this isn't a redesign problem. Sites in this range are usually slowed down by a small number of things — large images, too much loading up front, or content that appears later than expected on mobile.</p>
+<p>The good news is: these are easy fixes and I'm happy to walk you through them in 15 minutes or less.</p>
 
-<p>When we help with this at <b>DoneWell Design Co</b>, we focus on removing that early friction so the site feels fast and trustworthy from the first moment.</p>
-
-<p>If it's useful, I'm happy to share what stood out most and what we'd prioritize first.</p>
-
-<p>Happy to chat,<br><b>Kevin L.</b><br><a href="https://donewellco.com">DoneWell Design Co</a></p>
+<p>Let's chat,<br><b>Kevin L.</b><br><a href="https://donewellco.com">DoneWell Design Co</a></p>
 
 <p>—</p>
 
-<p>If this isn't relevant or you'd prefer not to receive notes like this, you can ask to be removed <a href="https://donewellco.com/unsubscribe?email=${encodeURIComponent(lead.email)}">here</a>.</p>
+<p style="color: #AAAAAA;">If you'd prefer not to receive notes like this, you can ask to be removed <a href="https://donewellco.com/unsubscribe?email=${encodeURIComponent(lead.email)}">here</a>.</p>
 
 Adaptive Instructions (CRITICAL - Adapt Based on Which Score is Lowest):
 
@@ -393,7 +385,6 @@ Adaptive Instructions (CRITICAL - Adapt Based on Which Score is Lowest):
 6. Emphasize that fixes are contained and do not require a redesign
    - "this isn't a redesign problem"
    - "usually slowed down by a small number of things"
-   - "removing that early friction"
 
 7. Keep the tone calm, factual, and human
    - No urgency, no hype, no sales pressure
@@ -424,19 +415,19 @@ HTML Formatting Rules:
 
 Return ONLY valid JSON (no markdown, no extra commentary):
 {
-  "subject": "A quick note after reviewing your homepage",
+  "subject": "I reviewed your website, and here were the results",
   "body": "string (with HTML formatting: <p> for paragraphs, <b> for bold, <a> for links, <br> for line breaks)"
 }
 
 CRITICAL REQUIREMENTS:
-1. Subject MUST be exactly: "A quick note after reviewing your homepage"
+1. Subject MUST be exactly: "I reviewed your website, and here were the results"
 2. Include all three scores: Performance, SEO, Accessibility (use exact numbers provided)
 3. Adapt the explanation paragraph based on which score is actually lowest (${lowestScore.label} with score ${lowestScore.value})
 4. If scores are mixed, acknowledge strengths while focusing on the lowest score
 5. Tie to first impressions, trust, or people leaving early
 6. Emphasize fixes are contained, no redesign needed
-7. Signature exactly: <p>Happy to chat,<br><b>Kevin L.</b><br><a href="https://donewellco.com">DoneWell Design Co</a></p>
-8. Include unsubscribe link at bottom: <p>—</p><p>If this isn't relevant or you'd prefer not to receive notes like this, you can ask to be removed <a href="https://donewellco.com/unsubscribe?email=${encodeURIComponent(lead.email)}">here</a>.</p>
+7. Signature exactly: <p>Let's chat,<br><b>Kevin L.</b><br><a href="https://donewellco.com">DoneWell Design Co</a></p>
+8. Include unsubscribe link at bottom: <p>—</p><p style="color: #AAAAAA;">If you'd prefer not to receive notes like this, you can ask to be removed <a href="https://donewellco.com/unsubscribe?email=${encodeURIComponent(lead.email)}">here</a>.</p>
 9. NO technical jargon, tools, or implementation details
 10. Focus on "homepage" throughout, not "website" or "site"`
 
@@ -454,7 +445,7 @@ CRITICAL REQUIREMENTS:
         messages: [
           {
             role: 'system',
-            content: 'You are a senior client-services writer for DoneWell Design Co. You write calm, factual, human emails in simple, non-technical language. You NEVER use technical jargon, tool recommendations, or implementation details. You write like you\'re emailing a peer. Always return valid JSON only: {"subject": "string", "body": "string"}. The subject MUST be exactly "A quick note after reviewing your homepage". The body MUST use HTML formatting: <p> tags for paragraphs, <b> for bold, <a> for links, and <br> for line breaks. Always include exact scores (Performance, SEO, Accessibility). Adapt your explanation based on which score is actually lowest - focus on that score while acknowledging strengths if scores are mixed. Explain what the lowest score means in plain language, focusing on "homepage" not "website". Tie issues to first impressions, trust, or people leaving early. Emphasize fixes are contained, no redesign needed. The signature MUST be exactly: "<p>Happy to chat,<br><b>Kevin L.</b><br><a href=\\"https://donewellco.com\\">DoneWell Design Co</a></p>". Include unsubscribe link at bottom: "<p>—</p><p>If this isn\'t relevant or you\'d prefer not to receive notes like this, you can ask to be removed <a href=\\"[unsubscribe_url]\\">here</a>.</p>" - make "here" the link text, not the full URL, and use a period instead of a colon. No markdown or extra commentary.'
+            content: 'You are a senior client-services writer for DoneWell Design Co. You write calm, factual, human emails in simple, non-technical language. You NEVER use technical jargon, tool recommendations, or implementation details. You write like you\'re emailing a peer. Always return valid JSON only: {"subject": "string", "body": "string"}. The subject MUST be exactly "I reviewed your website, and here were the results". The body MUST use HTML formatting: <p> tags for paragraphs, <b> for bold, <a> for links, and <br> for line breaks. Always include exact scores (Performance, SEO, Accessibility). Adapt your explanation based on which score is actually lowest - focus on that score while acknowledging strengths if scores are mixed. Explain what the lowest score means in plain language, focusing on "homepage" not "website". Tie issues to first impressions, trust, or people leaving early. Emphasize fixes are contained, no redesign needed. The signature MUST be exactly: "<p>Let\'s chat,<br><b>Kevin L.</b><br><a href=\\"https://donewellco.com\\">DoneWell Design Co</a></p>". Include unsubscribe link at bottom: "<p>—</p><p style="color: #AAAAAA;">If you\'d prefer not to receive notes like this, you can ask to be removed <a href=\\"[unsubscribe_url]\\">here</a>.</p>" - make "here" the link text, not the full URL, and use a period instead of a colon. No markdown or extra commentary.'
           },
           {
             role: 'user',

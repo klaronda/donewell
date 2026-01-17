@@ -174,14 +174,14 @@ function getPrepEmailTemplate(data: PrepEmailData): { subject: string; html: str
   const scheduledTimeText = scheduledTime ? formatScheduledTime(scheduledTime) : 'your scheduled time'
 
   return {
-    subject: 'Your Discovery session is booked — DoneWell',
+    subject: 'Your Discovery session is booked – DoneWell',
     html: `
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Discovery session is booked — DoneWell</title>
+    <title>Your Discovery session is booked – DoneWell</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #faf8f5; line-height: 1.6;">
     
@@ -220,7 +220,7 @@ function getPrepEmailTemplate(data: PrepEmailData): { subject: string; html: str
                     <tr>
                         <td style="padding: 0 40px 40px;">
                             <h2 style="margin: 0 0 16px; font-size: 18px; font-weight: 600; color: #292524;">A few questions to help us make the most of our time</h2>
-                            <p style="margin: 0 0 24px; font-size: 14px; color: #57534e; line-height: 1.5;">You don't need perfect answers — short, gut-reaction responses are more than enough.<br>Just reply directly to this email.</p>
+                            <p style="margin: 0 0 24px; font-size: 14px; color: #57534e; line-height: 1.5;">You don't need perfect answers – short, gut-reaction responses are more than enough.<br>Just reply directly to this email.</p>
                             
                             <div style="background-color: #ffffff; border: 1px solid #e7e5e4; border-radius: 12px; padding: 24px;">
                                 <ol style="margin: 0; padding-left: 20px; color: #292524;">
@@ -231,7 +231,7 @@ function getPrepEmailTemplate(data: PrepEmailData): { subject: string; html: str
                                     
                                     <li style="margin-bottom: 20px; font-size: 15px; line-height: 1.6;">
                                         <strong style="color: #292524;">Who is this site primarily for?</strong><br>
-                                        <span style="font-size: 14px; color: #78716c;">Your main customer or audience — the group this needs to work for most.</span>
+                                        <span style="font-size: 14px; color: #78716c;">Your main customer or audience – the group this needs to work for most.</span>
                                     </li>
                                     
                                     <li style="margin-bottom: 20px; font-size: 15px; line-height: 1.6;">
@@ -255,7 +255,7 @@ function getPrepEmailTemplate(data: PrepEmailData): { subject: string; html: str
                                     
                                     <li style="margin-bottom: 20px; font-size: 15px; line-height: 1.6;">
                                         <strong style="color: #292524;">Do you already have anything we should work from or build around?</strong><br>
-                                        <span style="font-size: 14px; color: #78716c;">This could include a logo, brand colors, an existing website, written copy, photos, or other assets — or nothing at all.</span>
+                                        <span style="font-size: 14px; color: #78716c;">This could include a logo, brand colors, an existing website, written copy, photos, or other assets – or nothing at all.</span>
                                     </li>
                                     
                                     <li style="margin-bottom: 0; font-size: 15px; line-height: 1.6;">
@@ -285,7 +285,7 @@ function getPrepEmailTemplate(data: PrepEmailData): { subject: string; html: str
                                 <li style="margin-bottom: 8px; font-size: 15px; line-height: 1.6;">A recommended approach</li>
                                 <li style="margin-bottom: 0; font-size: 15px; line-height: 1.6;">A final quote (usually within 24 hours)</li>
                             </ul>
-                            <p style="margin: 0; font-size: 15px; color: #57534e; line-height: 1.6;">No pressure and no sales pitch — just clarity so you can decide what's right for you.</p>
+                            <p style="margin: 0; font-size: 15px; color: #57534e; line-height: 1.6;">No pressure and no sales pitch – just clarity so you can decide what's right for you.</p>
                         </td>
                     </tr>
                     

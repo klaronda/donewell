@@ -24,11 +24,9 @@ export interface SubjectStats {
   subject: string;
   sendCount: number;
   deliveredCount: number;
-  openCount: number;
   clickCount: number;
   bounceCount: number;
   complaintCount: number;
-  openRate: number;
   clickRate: number;
   bounceRate: number;
   complaintRate: number;
@@ -74,11 +72,9 @@ export function useEmailAnalytics() {
           subject,
           sendCount: 0,
           deliveredCount: 0,
-          openCount: 0,
           clickCount: 0,
           bounceCount: 0,
           complaintCount: 0,
-          openRate: 0,
           clickRate: 0,
           bounceRate: 0,
           complaintRate: 0,
@@ -88,7 +84,6 @@ export function useEmailAnalytics() {
       
       acc[subject].sendCount += 1;
       acc[subject].deliveredCount += email.delivered_count > 0 ? 1 : 0;
-      acc[subject].openCount += email.open_count > 0 ? 1 : 0;
       acc[subject].clickCount += email.click_count > 0 ? 1 : 0;
       acc[subject].bounceCount += email.bounce_count > 0 ? 1 : 0;
       acc[subject].complaintCount += email.complaint_count > 0 ? 1 : 0;
@@ -98,7 +93,6 @@ export function useEmailAnalytics() {
     }, {} as Record<string, SubjectStats>)
   ).map((stats) => ({
     ...stats,
-    openRate: stats.deliveredCount > 0 ? (stats.openCount / stats.deliveredCount) * 100 : 0,
     clickRate: stats.deliveredCount > 0 ? (stats.clickCount / stats.deliveredCount) * 100 : 0,
     bounceRate: stats.sendCount > 0 ? (stats.bounceCount / stats.sendCount) * 100 : 0,
     complaintRate: stats.sendCount > 0 ? (stats.complaintCount / stats.sendCount) * 100 : 0,
@@ -109,15 +103,13 @@ export function useEmailAnalytics() {
     (acc, email) => ({
       total: acc.total + 1,
       delivered: acc.delivered + (email.delivered_count > 0 ? 1 : 0),
-      opened: acc.opened + (email.open_count > 0 ? 1 : 0),
       clicked: acc.clicked + (email.click_count > 0 ? 1 : 0),
       bounced: acc.bounced + (email.bounce_count > 0 ? 1 : 0),
       complained: acc.complained + (email.complaint_count > 0 ? 1 : 0),
     }),
-    { total: 0, delivered: 0, opened: 0, clicked: 0, bounced: 0, complained: 0 }
+    { total: 0, delivered: 0, clicked: 0, bounced: 0, complained: 0 }
   );
 
-  const openRate = overallStats.delivered > 0 ? (overallStats.opened / overallStats.delivered) * 100 : 0;
   const clickRate = overallStats.delivered > 0 ? (overallStats.clicked / overallStats.delivered) * 100 : 0;
   const bounceRate = overallStats.total > 0 ? (overallStats.bounced / overallStats.total) * 100 : 0;
   const complaintRate = overallStats.total > 0 ? (overallStats.complained / overallStats.total) * 100 : 0;
@@ -130,11 +122,12 @@ export function useEmailAnalytics() {
     refetch: fetchAnalytics,
     stats: {
       ...overallStats,
-      openRate: Math.round(openRate * 10) / 10,
       clickRate: Math.round(clickRate * 10) / 10,
       bounceRate: Math.round(bounceRate * 10) / 10,
       complaintRate: Math.round(complaintRate * 10) / 10,
     },
   };
 }
+
+
 

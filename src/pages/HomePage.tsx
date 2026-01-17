@@ -50,7 +50,7 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
   return (
     <div className="min-h-screen">
       <SEO 
-        description="We turn your vision into professional websites and apps that your customers will love — without the tech headaches. Average 14-day delivery."
+        description="We turn your vision into professional websites and apps that your customers will love – without the tech headaches. Average 14-day delivery."
         url="https://donewellco.com"
       />
       <Header onGetStartedClick={onGetStartedClick} />
@@ -70,7 +70,7 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
                 Your Idea. Built Right. Delivered Fast.
               </h1>
               <p className="text-xl text-[--color-stone-800] mb-6 leading-relaxed px-[0px] py-[24px] mx-auto my-[12px] max-w-2xl text-left">
-                We turn your vision into professional websites and apps that your customers will love — without the tech headaches.
+                We turn your vision into professional websites and apps that your customers will love – without the tech headaches.
               </p>
               
               {/* Trust Signals */}
@@ -150,7 +150,7 @@ export function HomePage({ onGetStartedClick, isModalOpen, onModalClose }: HomeP
             <h2 className="mb-6">From Idea to Launch in 4 Simple Steps</h2>
             <div className="flex justify-center">
               <p className="text-xl text-[--color-stone-600] max-w-2xl pt-4" style={{ textAlign: 'center' }}>
-                A clear, proven path that takes you from concept to a live website — with zero stress.
+                A clear, proven path that takes you from concept to a live website – with zero stress.
               </p>
             </div>
           </div>

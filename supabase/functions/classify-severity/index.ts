@@ -267,3 +267,5 @@ function generateIncidentDescription(checkType: string, siteName: string, failur
   return `${descriptions[checkType] || 'A health check is failing.'} (${failures} consecutive failures)`
 }
 
+
+

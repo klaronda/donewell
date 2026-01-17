@@ -169,7 +169,10 @@ serve(async (req) => {
           { name: 'lead_id', value: emailDraft.lead_id },
           { name: 'email_draft_id', value: email_draft_id },
           { name: 'campaign', value: 'audit-outreach' }
-        ]
+        ],
+        // Enable tracking for opens and clicks (required for email.opened and email.clicked events)
+        open_tracking: true,
+        click_tracking: true
       }),
     })
 

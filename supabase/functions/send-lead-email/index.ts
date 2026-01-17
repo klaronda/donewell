@@ -20,14 +20,14 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
   if (bookedConsult) {
     // Email for booked_consult=true
     return {
-      subject: 'Your consult is booked — DoneWell',
+      subject: 'Your consult is booked – DoneWell',
       html: `
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your consult is booked — DoneWell</title>
+    <title>Your consult is booked – DoneWell</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #faf8f5; line-height: 1.6;">
     
@@ -83,7 +83,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                     <tr>
                         <td style="padding: 0 40px 40px;">
                             <h2 style="margin: 0 0 12px; font-size: 18px; font-weight: 600; color: #292524;">These questions help us make the most of our time together</h2>
-                            <p style="margin: 0 0 24px; font-size: 14px; color: #57534e; line-height: 1.5;">You can keep your answers brief — just enough context so we can jump right into what matters on the call.</p>
+                            <p style="margin: 0 0 24px; font-size: 14px; color: #57534e; line-height: 1.5;">You can keep your answers brief – just enough context so we can jump right into what matters on the call.</p>
                             
                             <div style="background-color: #ffffff; border: 1px solid #e7e5e4; border-radius: 12px; padding: 24px;">
                                 <ol style="margin: 0; padding-left: 20px; color: #292524;">
@@ -94,7 +94,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                                     
                                     <li style="margin-bottom: 16px; font-size: 15px; line-height: 1.6;">
                                         <strong style="color: #292524;">Who is this for?</strong><br>
-                                        <span style="font-size: 14px; color: #78716c;">(Your audience or customer — who needs this to work?)</span>
+                                        <span style="font-size: 14px; color: #78716c;">(Your audience or customer – who needs this to work?)</span>
                                     </li>
                                     
                                     <li style="margin-bottom: 16px; font-size: 15px; line-height: 1.6;">
@@ -119,7 +119,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                                 </ol>
                             </div>
                             
-                            <p style="margin: 16px 0 0; font-size: 14px; color: #57534e; font-style: italic;">Just reply directly to this email with your thoughts — no need to be formal.</p>
+                            <p style="margin: 16px 0 0; font-size: 14px; color: #57534e; font-style: italic;">Just reply directly to this email with your thoughts – no need to be formal.</p>
                         </td>
                     </tr>
                     
@@ -127,7 +127,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                     <tr>
                         <td style="padding: 32px 40px 40px; background-color: #fafaf9; border-top: 1px solid #e7e5e4;">
                             <h2 style="margin: 0 0 12px; font-size: 18px; font-weight: 600; color: #292524;">What happens next</h2>
-                            <p style="margin: 0 0 12px; font-size: 15px; color: #57534e; line-height: 1.6;">We'll use the call to understand your needs and clarify the scope. After we talk, you'll get a recommended approach and a clear quote — usually within 24 hours.</p>
+                            <p style="margin: 0 0 12px; font-size: 15px; color: #57534e; line-height: 1.6;">We'll use the call to understand your needs and clarify the scope. After we talk, you'll get a recommended approach and a clear quote – usually within 24 hours.</p>
                             <p style="margin: 0; font-size: 15px; color: #57534e; line-height: 1.6;">No pressure, no sales pitch. Just clarity so you can make an informed decision.</p>
                         </td>
                     </tr>
@@ -186,14 +186,14 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
   } else {
     // Email for booked_consult=false
     return {
-      subject: 'Thanks for reaching out — DoneWell',
+      subject: 'Thanks for reaching out – DoneWell',
       html: `
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thanks for reaching out — DoneWell</title>
+    <title>Thanks for reaching out – DoneWell</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #faf8f5; line-height: 1.6;">
     
@@ -252,7 +252,7 @@ function getEmailTemplate(data: LeadEmailData): { subject: string; html: string 
                             <div style="background-color: #fafaf9; border: 1px solid #e7e5e4; border-radius: 12px; padding: 24px; text-align: center;">
                                 <p style="margin: 0 0 16px; font-size: 16px; color: #57534e; line-height: 1.5;">If you'd like to talk this through, we're happy to schedule a quick call.</p>
                                 <a href="https://calendly.com/contact-donewellco/30min" style="display: inline-block; background-color: #1B4D2E; color: #ffffff; text-decoration: none; padding: 12px 32px; border-radius: 8px; font-size: 15px; font-weight: 500;">Schedule a call</a>
-                                <p style="margin: 16px 0 0; font-size: 14px; color: #78716c;">No obligation — just a conversation.</p>
+                                <p style="margin: 16px 0 0; font-size: 14px; color: #78716c;">No obligation – just a conversation.</p>
                             </div>
                         </td>
                     </tr>

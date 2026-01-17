@@ -82,3 +82,5 @@ GROUP BY ed.id, ed.lead_id, ls.company_name, ls.email, ed.subject, ed.sent_at, e
 
 COMMENT ON VIEW email_analytics IS 'Aggregated email tracking analytics per sent email';
 
+
+

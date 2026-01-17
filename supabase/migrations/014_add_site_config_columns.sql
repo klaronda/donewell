@@ -25,3 +25,5 @@ COMMENT ON COLUMN monitored_sites.trial_end_date IS 'End date of trial period (t
 COMMENT ON COLUMN monitored_sites.cms_table IS 'Name of the CMS table to check (e.g., projects, testimonials)';
 COMMENT ON COLUMN monitored_sites.forms_table IS 'Name of the forms table to check (e.g., contact_submissions)';
 
+
+

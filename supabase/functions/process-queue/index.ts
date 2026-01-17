@@ -176,6 +176,39 @@ serve(async (req) => {
         console.log('✅ Audit already exists for lead')
       }
 
+      // Step 0.5: Get the latest audit ID and generate insights if needed
+      const { data: latestAudit, error: latestAuditError } = await supabase
+        .from('site_audits')
+        .select('id, insights')
+        .eq('lead_id', queueItem.lead_id)
+        .eq('is_latest', true)
+        .single()
+
+      if (latestAuditError || !latestAudit) {
+        throw new Error(`Failed to fetch latest audit: ${latestAuditError?.message || 'Unknown error'}`)
+      }
+
+      // Generate insights if they don't exist
+      if (!latestAudit.insights || !Array.isArray(latestAudit.insights) || latestAudit.insights.length === 0) {
+        console.log('💡 Generating insights for audit:', latestAudit.id)
+        const generateInsightsResponse = await supabase.functions.invoke('generate-insights', {
+          body: { audit_id: latestAudit.id }
+        })
+
+        if (generateInsightsResponse.error) {
+          throw new Error(`Failed to generate insights: ${generateInsightsResponse.error.message}`)
+        }
+
+        const insightsResult = generateInsightsResponse.data
+        if (!insightsResult || !insightsResult.success) {
+          throw new Error(`Insights generation failed: ${insightsResult?.error || 'Unknown error'}`)
+        }
+
+        console.log('✅ Insights generated:', insightsResult.insights)
+      } else {
+        console.log('✅ Insights already exist for audit')
+      }
+
       // Step 1: Generate email
       console.log('📧 Generating email for lead:', queueItem.lead_id)
       const generateEmailResponse = await supabase.functions.invoke('generate-email', {

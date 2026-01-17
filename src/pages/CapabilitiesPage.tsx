@@ -17,7 +17,7 @@ interface CapabilitiesPageProps {
 /**
  * Capabilities Page
  * 
- * A confidence amplifier that answers: "Yes — they've done this before, and they'll handle it for me."
+ * A confidence amplifier that answers: "Yes – they've done this before, and they'll handle it for me."
  * 
  * Structure:
  * - Hero (simple, no buttons)
@@ -31,7 +31,7 @@ export function CapabilitiesPage({ onGetStartedClick, isModalOpen, onModalClose 
   const capabilities = [
     {
       title: 'Content & CMS',
-      description: 'Websites that are easy to update, scale, and maintain — without breaking things.',
+      description: 'Websites that are easy to update, scale, and maintain – without breaking things.',
       includes: [
         'Blogs, pages, case studies',
         'Rich text, images, media',
@@ -41,7 +41,7 @@ export function CapabilitiesPage({ onGetStartedClick, isModalOpen, onModalClose 
     },
     {
       title: 'Accounts & Authentication',
-      description: 'Secure login systems for teams, customers, or members — designed around how people actually use them.',
+      description: 'Secure login systems for teams, customers, or members – designed around how people actually use them.',
       includes: [
         'Admin access',
         'Customer accounts',
@@ -51,7 +51,7 @@ export function CapabilitiesPage({ onGetStartedClick, isModalOpen, onModalClose 
     },
     {
       title: 'Automation & Monitoring',
-      description: 'Systems that quietly watch, check, and report — so problems are caught early.',
+      description: 'Systems that quietly watch, check, and report – so problems are caught early.',
       includes: [
         'Site health checks',
         'Uptime and performance monitoring',
@@ -93,7 +93,7 @@ export function CapabilitiesPage({ onGetStartedClick, isModalOpen, onModalClose 
     <div className="min-h-screen">
       <SEO 
         title="Capabilities - DoneWell"
-        description="Everything we build is custom — but never complicated to use. See how we connect the tools you already use and automate the ones you shouldn't have to think about."
+        description="Everything we build is custom – but never complicated to use. See how we connect the tools you already use and automate the ones you shouldn't have to think about."
         url="https://donewellco.com/capabilities"
       />
       <Header onGetStartedClick={onGetStartedClick} />
@@ -105,14 +105,14 @@ export function CapabilitiesPage({ onGetStartedClick, isModalOpen, onModalClose 
             Capabilities
           </h1>
           <p className="text-xl md:text-2xl text-[--color-stone-700] leading-relaxed max-w-2xl mx-auto">
-            Everything we build is custom — but never complicated to use.
+            Everything we build is custom – but never complicated to use.
           </p>
         </div>
       </section>
 
       {/* Integrations Section */}
       <IntegrationsSection 
-        introText="We regularly work with the tools below — and connect them in ways that fit your business, not a template."
+        introText="We regularly work with the tools below – and connect them in ways that fit your business, not a template."
         showHeader={false}
         showCTA={false}
         backgroundColor="bg-[--color-sage-50]"
@@ -139,7 +139,7 @@ export function CapabilitiesPage({ onGetStartedClick, isModalOpen, onModalClose 
       <section className="py-16 bg-[--color-sage-50]">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <p className="text-lg md:text-xl text-[--color-stone-700] leading-relaxed italic">
-            Most of our work starts as a simple question —<br />
+            Most of our work starts as a simple question –<br />
             "Can this system do X?"
           </p>
           <p className="text-lg md:text-xl text-[--color-stone-700] leading-relaxed mt-4">
