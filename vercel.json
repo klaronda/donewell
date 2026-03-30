@@ -1,18 +1,4 @@
 {
-  "redirects": [
-    {
-      "source": "/",
-      "has": [{"type": "host", "value": "www.donewellco.com"}],
-      "destination": "https://donewellco.com/",
-      "statusCode": 301
-    },
-    {
-      "source": "/(.*)",
-      "has": [{"type": "host", "value": "www.donewellco.com"}],
-      "destination": "https://donewellco.com/$1",
-      "statusCode": 301
-    }
-  ],
   "rewrites": [
     {"source": "/api/health", "destination": "/api/health.ts"},
     {"source": "/api/health/cms", "destination": "/api/health/cms.ts"},
