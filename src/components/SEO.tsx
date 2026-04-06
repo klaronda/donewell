@@ -1,9 +1,25 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+/** Single canonical host for Search Console / indexing (apex, HTTPS). */
+const CANONICAL_ORIGIN = 'https://donewellco.com';
+
+function normalizePathname(pathname: string): string {
+  if (!pathname || pathname === '/') return '/';
+  let p = pathname;
+  if (p.length > 1 && p.endsWith('/')) p = p.slice(0, -1);
+  return p;
+}
+
+function canonicalUrlForPathname(pathname: string): string {
+  const p = normalizePathname(pathname);
+  return p === '/' ? `${CANONICAL_ORIGIN}/` : `${CANONICAL_ORIGIN}${p}`;
+}
 
 interface SEOProps {
   title?: string;
   description?: string;
   image?: string;
+  /** @deprecated Ignored for canonical/og:url; URLs are derived from apex + current path so www/http never leak into canonicals. */
   url?: string;
   type?: string;
   keywords?: string;
@@ -14,25 +30,41 @@ export function SEO({
   title = 'DoneWell – Web and App Builds, DoneWell',
   description = 'We turn your vision into professional websites and apps that your customers will love – without the tech headaches. Average 14-day delivery.',
   image = 'https://udiskjjuszutgpvkogzw.supabase.co/storage/v1/object/public/site-assets/Homepage/OG.png',
-  url = 'https://donewellco.com',
+  url: _url,
   type = 'website',
   keywords = 'website design, web development, custom websites, business websites, donewell, web design agency',
   noindex = false,
 }: SEOProps) {
-  useEffect(() => {
-    const currentPath = window.location.pathname;
-    const fullUrl = `${url}${currentPath === '/' ? '' : currentPath}`;
-    const fullTitle = title.includes('DoneWell') ? title : `${title} | DoneWell`;
-    // Use title as-is for OG/Twitter, but default to OG-specific title if using default browser title
-    // This ensures OG titles stay as "Your idea. Built right. Delivered fast." when no title prop is provided
-    const ogTitle = title === 'DoneWell – Web and App Builds, DoneWell' 
-      ? 'Your idea. Built right. Delivered fast.' 
-      : title;
+  const [pathname, setPathname] = useState(() =>
+    typeof window !== 'undefined' ? window.location.pathname : '/',
+  );
 
-    // Update document title
+  useEffect(() => {
+    const syncPath = () => setPathname(window.location.pathname);
+
+    window.addEventListener('popstate', syncPath);
+    const originalPushState = window.history.pushState;
+    window.history.pushState = function (...args) {
+      originalPushState.apply(window.history, args);
+      syncPath();
+    };
+
+    return () => {
+      window.removeEventListener('popstate', syncPath);
+      window.history.pushState = originalPushState;
+    };
+  }, []);
+
+  useEffect(() => {
+    const fullUrl = canonicalUrlForPathname(pathname);
+    const fullTitle = title.includes('DoneWell') ? title : `${title} | DoneWell`;
+    const ogTitle =
+      title === 'DoneWell – Web and App Builds, DoneWell'
+        ? 'Your idea. Built right. Delivered fast.'
+        : title;
+
     document.title = fullTitle;
 
-    // Helper function to update or create meta tags
     const updateMetaTag = (name: string, content: string, property = false) => {
       const attribute = property ? 'property' : 'name';
       let tag = document.querySelector(`meta[${attribute}="${name}"]`);
@@ -44,13 +76,11 @@ export function SEO({
       tag.setAttribute('content', content);
     };
 
-    // Basic meta tags
     updateMetaTag('description', description);
     updateMetaTag('keywords', keywords);
     updateMetaTag('title', fullTitle);
     updateMetaTag('robots', noindex ? 'noindex, nofollow' : 'index, follow');
 
-    // Open Graph meta tags
     updateMetaTag('og:type', type, true);
     updateMetaTag('og:title', ogTitle, true);
     updateMetaTag('og:description', description, true);
@@ -58,7 +88,6 @@ export function SEO({
     updateMetaTag('og:url', fullUrl, true);
     updateMetaTag('og:site_name', 'DoneWell', true);
 
-    // Twitter meta tags
     updateMetaTag('twitter:card', 'summary_large_image');
     updateMetaTag('twitter:domain', 'donewellco.com', true);
     updateMetaTag('twitter:url', fullUrl, true);
@@ -66,7 +95,6 @@ export function SEO({
     updateMetaTag('twitter:description', description);
     updateMetaTag('twitter:image', image);
 
-    // Update canonical link
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement('link');
@@ -74,11 +102,7 @@ export function SEO({
       document.head.appendChild(canonical);
     }
     canonical.setAttribute('href', fullUrl);
-  }, [title, description, image, url, type, keywords, noindex]);
+  }, [title, description, image, type, keywords, noindex, pathname]);
 
   return null;
 }
-
-
-
-
