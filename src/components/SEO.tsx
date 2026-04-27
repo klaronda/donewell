@@ -1,25 +1,11 @@
 import { useEffect, useState } from 'react';
-
-/** Single canonical host for Search Console / indexing (apex, HTTPS). */
-const CANONICAL_ORIGIN = 'https://donewellco.com';
-
-function normalizePathname(pathname: string): string {
-  if (!pathname || pathname === '/') return '/';
-  let p = pathname;
-  if (p.length > 1 && p.endsWith('/')) p = p.slice(0, -1);
-  return p;
-}
-
-function canonicalUrlForPathname(pathname: string): string {
-  const p = normalizePathname(pathname);
-  return p === '/' ? `${CANONICAL_ORIGIN}/` : `${CANONICAL_ORIGIN}${p}`;
-}
+import { canonicalUrlForPath } from '../utils/canonical';
 
 interface SEOProps {
   title?: string;
   description?: string;
   image?: string;
-  /** @deprecated Ignored for canonical/og:url; URLs are derived from apex + current path so www/http never leak into canonicals. */
+  /** Unused; canonical is derived from hostname + path (see canonical.ts). */
   url?: string;
   type?: string;
   keywords?: string;
@@ -56,7 +42,8 @@ export function SEO({
   }, []);
 
   useEffect(() => {
-    const fullUrl = canonicalUrlForPathname(pathname);
+    const host = typeof window !== 'undefined' ? window.location.hostname : 'donewellco.com';
+    const fullUrl = canonicalUrlForPath(host, pathname);
     const fullTitle = title.includes('DoneWell') ? title : `${title} | DoneWell`;
     const ogTitle =
       title === 'DoneWell – Web and App Builds, DoneWell'

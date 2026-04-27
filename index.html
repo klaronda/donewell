@@ -38,8 +38,24 @@
     <link rel="dns-prefetch" href="https://udiskjjuszutgpvkogzw.supabase.co" />
     <link rel="dns-prefetch" href="https://assets.calendly.com" />
     
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://donewellco.com/" />
+    <!-- Canonical + og:url match serving host (www vs apex); see src/utils/canonical.ts -->
+    <link rel="canonical" href="https://donewellco.com/" id="dw-canonical" />
+    <script>
+      (function () {
+        var el = document.getElementById('dw-canonical');
+        if (!el) return;
+        var h = (location.hostname || '').toLowerCase();
+        var o = h === 'www.donewellco.com' ? 'https://www.donewellco.com' : 'https://donewellco.com';
+        var p = location.pathname || '/';
+        if (p.length > 1 && p.endsWith('/')) p = p.slice(0, -1);
+        var u = p === '/' ? o + '/' : o + p;
+        el.setAttribute('href', u);
+        var og = document.querySelector('meta[property="og:url"]');
+        if (og) og.setAttribute('content', u);
+        var tw = document.querySelector('meta[property="twitter:url"]');
+        if (tw) tw.setAttribute('content', u);
+      })();
+    </script>
     
     <!-- DoneWell Health Monitoring -->
     <meta name="donewell:site_id" content="dw_prod_001" />
